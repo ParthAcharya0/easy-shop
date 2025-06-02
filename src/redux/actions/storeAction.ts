@@ -7,7 +7,9 @@ export function setStoreData(data: any) {
 export function setProducts(data: any) {
   const products = data
     .map((data: any) => {
-      return data.subcategories.map((subcategory: any) => {
+      return data.subcategories.map((subcategory: any) => {git add .
+git commit
+
         return subcategory.products.map((product: any) => {
           return {
             category_id: data.category_id,
