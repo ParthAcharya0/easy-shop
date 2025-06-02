@@ -1,7 +1,17 @@
-import { useState } from "react";
-
-const InputWCountry = ({ label }: { label: string }) => {
-  const [number, setNumber] = useState("12354567890");
+const InputWCountry = ({
+  label,
+  value,
+  onChange,
+  actionType,
+  error,
+}: {
+  label: string;
+  value: string;
+  onChange: any;
+  actionType?: string;
+  error?: string | undefined;
+}) => {
+  const [number, setNumber] = [value, onChange];
 
   return (
     <label className="heading2" htmlFor="phoneNumber">
@@ -13,19 +23,26 @@ const InputWCountry = ({ label }: { label: string }) => {
           id="country-code"
         >
           <option value="+91">+ 91</option>
-          <option value="+80">+ 80</option>
-          <option value="+61">+ 61</option>
+          <option value="+80">+ 91</option>
+          <option value="+61">+ 91</option>
         </select>
         <input
-          className="w-full grow px-4 py-3 focus-within:outline-0"
+          className={`${value ? (error ? "invalid" : "valid") : ""} w-full grow rounded-full px-4 py-3 focus-within:outline-0`}
           type="number"
           id="phoneNumber"
           value={number}
+          inputMode="numeric"
           onChange={(e) =>
-            e.target.value.length <= 10 && setNumber(e.target.value)
+            e.target.value.length <= 10 &&
+            setNumber(
+              actionType === undefined
+                ? e.target.value
+                : { type: actionType, payload: e.target.value },
+            )
           }
         />
       </div>
+      {value && error && <p className="text-red-600">*{error}</p>}
     </label>
   );
 };

@@ -1,29 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchInput from "./components/atoms/Input/SearchInput";
 import Menu from "./components/atoms/menus/Menu";
 import ProductCard from "./components/atoms/card/ProductCard";
-import ProductCard1 from "./components/atoms/card/ProductCard1";
-import CategoryCard from "./components/atoms/card/CategoryCard";
 import CartCard from "./components/atoms/card/CartCard";
 import HeaderLink from "./components/atoms/text/HeaderLink";
 import OrderCard from "./components/atoms/card/OrderCard";
 import SummaryCard from "./components/atoms/card/SummaryCard";
 import AddressCard from "./components/atoms/card/AddressCard";
-// import { createContext } from "vm";  
-
-// const likeStore = createContext();
 
 function Demo() {
-  useEffect(() => {
-    // const a = document.querySelector("a");
-    // a?.addEventListener("click", (e) => {
-    //   e.preventDefault();
-    //   console.log(e);
-    // });
-  }, []);
-
   return (
     <div className="custom-scroll no-scrollbar flex h-full flex-col gap-2 overflow-y-auto py-8">
+      <div className="border border-amber-500 py-3">
+        {/* <InputLable label="first name" placeholder="enter frist name" /> */}
+      </div>
       <h1 className="heading1">hello</h1>
       <h3 className="heading2">hello</h3>
       <h3 className="heading3">hello</h3>
@@ -58,12 +48,12 @@ function Demo() {
       <div className="border border-amber-500 py-3">
         <ProductCard />
       </div>
-      <div className="border border-amber-500 py-3">
+      {/* <div className="border border-amber-500 py-3">
         <ProductCard1 />
       </div>
       <div className="border border-amber-500 py-3">
         <CategoryCard />
-      </div>
+      </div> */}
       <div className="border border-amber-500 py-3">
         <CartCard />
       </div>

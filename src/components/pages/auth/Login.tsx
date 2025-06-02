@@ -1,10 +1,19 @@
 import { IMAGES } from "@/app/images/images";
 import Button from "@/components/atoms/Button/Button";
 import Header from "@/components/atoms/text/Header";
+import { useEffect } from "react";
 import { FaApple, FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router";
 
 const Login = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("AUTH_TOKEN")) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <section className="custom-scroll no-scrollbar flex h-full flex-col justify-between gap-6 px-5">
       <div className="pt-8">
@@ -44,7 +53,9 @@ const Login = () => {
       <div className="pb-10 text-center">
         <p className="sub-heading">
           Don't have an account?
-          <span className="pl-2 font-medium text-black">Create one</span>
+          <Link to="/signup">
+            <span className="pl-2 font-medium text-black">Create one</span>
+          </Link>
         </p>
       </div>
     </section>

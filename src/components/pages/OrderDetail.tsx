@@ -1,5 +1,5 @@
 import BackBtn from "../atoms/Button/BackBtn";
-import SummaryCard from "../atoms/card/SummaryCard";
+// import SummaryCard from "../atoms/card/SummaryCard";
 import OrderDetailCard from "../atoms/card/OrderDetailCard";
 import AddressCard from "../atoms/card/AddressCard";
 
@@ -30,7 +30,7 @@ const OrderDetail = () => {
             <span className="heading2">Cash On Delivery</span>
           </div>
           <div className="mt-auto">
-            <SummaryCard />
+            {/* <SummaryCard /> */}
           </div>
         </div>
       </div>
