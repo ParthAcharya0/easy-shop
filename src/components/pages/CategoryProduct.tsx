@@ -5,7 +5,10 @@ import { useAppSelector } from "@/redux/hooks";
 import { useParams } from "react-router";
 
 const CategoryProduct = () => {
-  let { categoryID } = useParams();
+  let { categoryDetails } = useParams();
+  const [categoryName, categoryID] = categoryDetails
+    ? categoryDetails.split("_")
+    : [];
   const allProducts = useAppSelector((state) => state.storeData.allProducts);
   const categoryData = allProducts.filter(
     (product) => product.category_id.toString() === categoryID,
@@ -18,7 +21,7 @@ const CategoryProduct = () => {
         <div className="absolute top-0 bottom-0 left-2 my-auto -mb-[2.8px] h-fit">
           <BackBtn size={40} />
         </div>
-        <h1 className="heading2 py-0">Popular Product</h1>
+        <h1 className="heading2 py-0">{categoryName}</h1>
       </div>
       <div className="h-full w-full">
         {allProducts.length === 0 ? (

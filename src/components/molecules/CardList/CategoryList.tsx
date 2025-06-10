@@ -26,7 +26,10 @@ const CategoryList = ({ data }: any) => {
       ) : (
         <>
           {categories.map((category: any, index: number) => (
-            <Link to={`/category/${category.category_id}`} key={index}>
+            <Link
+              to={`/category/${category.category_name}_${category.category_id}`}
+              key={index}
+            >
               <CategoryCard
                 data={category}
                 className={colorTheme[index % colorTheme.length]}

@@ -4,7 +4,7 @@ import Button from "@/components/atoms/Button/Button";
 import InputLable from "@/components/atoms/Input/InputLable";
 import Header from "@/components/atoms/text/Header";
 import InputWCountry from "@/components/molecules/Login/InputWCountry";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 
@@ -44,6 +44,8 @@ function reducer(state: State, action: any) {
       return { ...state, checked: !action.payload };
     case "setError":
       return { ...state, error: { ...action.payload } };
+    case "reset":
+      return { ...state, error: {} };
 
     default:
       return state;
@@ -56,12 +58,27 @@ const SignUp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { firstName, lastName, email, phoneNumber, password, checked, error } =
     state;
+  const [btnState, setBtnState] = useState(true);
 
-  let bState = useRef(true);
-  let btnState = bState.current;
+  // let bState = useRef(true);
+  // let btnState = bState.current;
 
   //check validation
   useEffect(() => {
+    if (firstName && lastName && email && phoneNumber && password && checked) {
+      setBtnState(false);
+      console.log(btnState);
+      // console.log(bState.current);
+      // console.log("object");
+    } else {
+      setBtnState(true);
+    }
+    //  dispatch({ type: "reset"})
+    // bState.current = true;
+  }, [firstName, lastName, email, phoneNumber, password, checked]);
+
+  // Validate func
+  function isValidation() {
     const newErrors: Partial<State["error"]> = {};
 
     //First Name Validation
@@ -101,14 +118,17 @@ const SignUp = () => {
     //Is Checked ?
     if (!checked) newErrors.checkbox = "mark checkbox";
 
-    bState.current = Object.keys(newErrors).length !== 0;
+    // bState.current = Object.keys(newErrors).length !== 0;
 
     //Set in Local Reducer
     dispatch({ type: "setError", payload: newErrors });
-  }, [firstName, lastName, email, phoneNumber, password, checked]);
+
+    return Object.keys(newErrors).length === 0 ? true : false;
+  }
 
   // Submit with Send OTP
   async function handleSubmit() {
+    if (!isValidation()) return;
     const options = {
       method: "POST",
       headers: {
@@ -153,7 +173,7 @@ const SignUp = () => {
   return (
     <section className="custom-scroll no-scrollbar flex h-full flex-col gap-2 px-5 py-3">
       <div className="-ml-1.5 h-[44px]">
-        <BackBtn size={44} to={"/signInPhone"} />
+        <BackBtn size={44} to={"/login"} />
       </div>
       <div>
         <Header

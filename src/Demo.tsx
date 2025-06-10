@@ -1,12 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import SearchInput from "./components/atoms/Input/SearchInput";
 import Menu from "./components/atoms/menus/Menu";
-import ProductCard from "./components/atoms/card/ProductCard";
-import CartCard from "./components/atoms/card/CartCard";
+// import ProductCard from "./components/atoms/card/ProductCard";
+// import CartCard from "./components/atoms/card/CartCard";
 import HeaderLink from "./components/atoms/text/HeaderLink";
 import OrderCard from "./components/atoms/card/OrderCard";
-import SummaryCard from "./components/atoms/card/SummaryCard";
+// import SummaryCard from "./components/atoms/card/SummaryCard";
 import AddressCard from "./components/atoms/card/AddressCard";
+import ResendOtpBtn from "./components/atoms/Button/ResendOtpBtn";
 
 function Demo() {
   return (
@@ -46,7 +47,7 @@ function Demo() {
         <Menu />
       </div>
       <div className="border border-amber-500 py-3">
-        <ProductCard />
+        {/* <ProductCard /> */}
       </div>
       {/* <div className="border border-amber-500 py-3">
         <ProductCard1 />
@@ -54,41 +55,38 @@ function Demo() {
       <div className="border border-amber-500 py-3">
         <CategoryCard />
       </div> */}
-      <div className="border border-amber-500 py-3">
-        <CartCard />
-      </div>
+      <div className="border border-amber-500 py-3">{/* <CartCard /> */}</div>
       <div className="border border-amber-500 py-3">
         <OrderCard />
       </div>
       <div className="border border-amber-500 py-3">
-        <SummaryCard />
+        {/* <SummaryCard /> */}
       </div>
       <div className="border border-amber-500 py-3">
         <AddressCard />
       </div>
       <div className="border border-amber-500 py-3">
-        <Count />
-        <Count />
+        <ResendOtpBtn handler={()=>{}} />
       </div>
     </div>
   );
 }
 
-function Count() {
-  const [count, setCount] = useState(0);
+// function Count() {
+//   const [count, setCount] = useState(0);
 
-  return (
-    <div>
-      <h3>{count}</h3>
-      {count && <span>hello</span>}
-      <button
-        className="bg-red-500 p-4 text-white"
-        onClick={() => setCount(count + 1)}
-      >
-        ++
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h3>{count}</h3>
+//       {count && <span>hello</span>}
+//       <button
+//         className="bg-red-500 p-4 text-white"
+//         onClick={() => setCount(count + 1)}
+//       >
+//         ++
+//       </button>
+//     </div>
+//   );
+// }
 
 export default Demo;

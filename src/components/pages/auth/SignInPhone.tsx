@@ -15,14 +15,14 @@ const SignInPhone = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (number.length === 10) {
-      setDisable(false);
-      setError("");
+    if (number.length <= 0) {
+      setDisable(true);
       return;
     }
-    setDisable(true);
+    setError("");
+    setDisable(false);
 
-    setError("Invalid phone number");
+    // setError("Invalid phone number");
   }, [number]);
 
   // function handleSubmit() {
@@ -35,6 +35,12 @@ const SignInPhone = () => {
   // }
 
   async function handleSubmit() {
+    if (number.length < 10) {
+      setDisable(false);
+      setError("Phone number must be at least 10 digits");
+      return;
+    }
+
     const options = {
       method: "POST",
       headers: {
@@ -53,7 +59,7 @@ const SignInPhone = () => {
 
       if (otpData.status !== "success") throw new Error(otpData.msg.toString());
       toast.success(otpData.msg);
-      
+
       navigate("/otpVerify", {
         state: {
           from: "login",

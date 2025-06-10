@@ -16,7 +16,9 @@ const InputWCountry = ({
   return (
     <label className="heading2" htmlFor="phoneNumber">
       {label}
-      <div className="mt-2.5 flex rounded-full border border-gray-300 font-medium">
+      <div
+        className={`${value && error ? (error ? "invalid" : "valid") : ""} mt-2.5 flex rounded-full border border-gray-300 font-medium`}
+      >
         <select
           className="cursor-pointer px-3"
           name="country-code"
@@ -27,7 +29,7 @@ const InputWCountry = ({
           <option value="+61">+ 91</option>
         </select>
         <input
-          className={`${value ? (error ? "invalid" : "valid") : ""} w-full grow rounded-full px-4 py-3 focus-within:outline-0`}
+          className={`w-full grow rounded-full px-4 py-3 focus-within:outline-0`}
           type="number"
           id="phoneNumber"
           value={number}
@@ -42,7 +44,7 @@ const InputWCountry = ({
           }
         />
       </div>
-      {value && error && <p className="text-red-600">*{error}</p>}
+      {value && error && <p className="text-red-600 text-nowrap text-base">*{error}</p>}
     </label>
   );
 };

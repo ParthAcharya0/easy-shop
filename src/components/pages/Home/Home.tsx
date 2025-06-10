@@ -8,7 +8,7 @@ import CategoryList from "@/components/molecules/CardList/CategoryList";
 import Swipper from "@/components/atoms/swipper/Swipper";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
-import getUserInfo from "@/api/getUser";
+// import getUserInfo from "@/api/getUser";
 import getStore from "@/api/getStore";
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     if (access.length >= 2) {
-      getUserInfo(access);
+      // getUserInfo(access);
       store.length === 0 && getStore(access);
     }
   }, []);
@@ -41,9 +41,13 @@ const Home = () => {
             subHeading="View all"
             to="/AllPopularProduct"
           />
-          {allProducts.length === 0 ? (
+          {store.length === 0 ? (
             <p className="flex h-44 items-center justify-center text-center font-medium">
               <span className="loader w-2xl"></span>
+            </p>
+          ) : allProducts.length === 0 ? (
+            <p className="flex h-44 items-center justify-center text-center font-medium">
+              <span className="w-2xl">No Products</span>
             </p>
           ) : (
             <PopularProductList data={allProducts} variant="limited" />
@@ -71,9 +75,13 @@ const Home = () => {
             subHeading="View all"
             to="/AllPopularProduct"
           />
-          {allProducts.length === 0 ? (
+          {store.length === 0 ? (
             <p className="flex h-44 items-center justify-center text-center font-medium">
               <span className="loader w-2xl"></span>
+            </p>
+          ) : allProducts.length === 0 ? (
+            <p className="flex h-44 items-center justify-center text-center font-medium">
+              <span className="w-2xl">No Products</span>
             </p>
           ) : (
             <NProductList data={allProducts} />

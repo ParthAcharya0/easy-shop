@@ -31,7 +31,7 @@ const InputLable = ({
       ) : (
         <input
           id={label.toLowerCase()}
-          className={`${value ? (error ? "invalid" : "valid") : ""} rounded-full bg-gray-100 px-5.5 py-3 placeholder:text-gray-400 focus-within:outline-0`}
+          className={`${value && error ? (error ? "invalid" : "valid") : ""} rounded-full bg-gray-100 px-5.5 py-3 placeholder:text-gray-400 focus-within:outline-0`}
           type={type}
           placeholder={placeholder}
           value={value}

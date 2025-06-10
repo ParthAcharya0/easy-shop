@@ -70,7 +70,7 @@ const Router = () => {
       <Route path="/cart" element={<Cart />} />
       <Route path="/filter" element={<Filter />} />
       <Route path="/categoryFilter" element={<CategoryFilter />} />
-      <Route path="/category/:categoryID" element={<CategoryProduct />} />
+      <Route path="/category/:categoryDetails" element={<CategoryProduct />} />
       <Route path="/AllPopularProduct" element={<AllPopularProduct />} />
       <Route path="/orderDetails" element={<OrderDetail />} />
       <Route path="*" element={<NotFound />} />

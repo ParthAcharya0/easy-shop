@@ -3,6 +3,7 @@ type AuthState = {
   isUserAuth: boolean;
 };
 
+// @ts-ignore
 type Action = { type: string; payload: any };
 
 let access_token: string = "";

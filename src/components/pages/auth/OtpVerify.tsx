@@ -1,6 +1,7 @@
 import { AUTH_URL } from "@/app/url";
 import BackBtn from "@/components/atoms/Button/BackBtn";
 import Button from "@/components/atoms/Button/Button";
+import ResendOtpBtn from "@/components/atoms/Button/ResendOtpBtn";
 import Header from "@/components/atoms/text/Header";
 import { setAccessToken } from "@/redux/actions/authAction";
 import { useAppDispatch } from "@/redux/hooks";
@@ -26,8 +27,6 @@ const OtpVerify = () => {
   const prevData = location.state;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  // console.log(location);
 
   // checked Coming from Where
   if (prevData?.from === "login") {
@@ -242,12 +241,13 @@ const OtpVerify = () => {
             </div>
             <p className="sub-heading">
               have Problem?
-              <button
+              {/* <button
                 className="cursor-pointer pl-2 font-medium text-black"
                 onClick={resendOtp}
               >
                 Resend Code
-              </button>
+              </button> */}
+              <ResendOtpBtn handler={resendOtp} />
             </p>
           </div>
           {!loading ? (

@@ -19,14 +19,13 @@ const SummaryCard = ({ data }: { data: Cart[] }) => {
   const deliveryCharges = 2.5;
   const promotion = 2.5;
   const total = calculateTotal(data).toFixed(2);
-  console.log();
 
   function calculateTotal(cartData: Cart[]): number {
     return (
       cartData.reduce((total, item) => {
         return total + parseFloat(item.selling_price) * item.quantity;
       }, 0) +
-      deliveryCharges +
+      deliveryCharges -
       promotion
     );
   }
@@ -55,7 +54,7 @@ const SummaryCard = ({ data }: { data: Cart[] }) => {
   );
 };
 
-const Details = ({ data }:{data:Cart}) => {
+const Details = ({ data }: { data: Cart }) => {
   return (
     <div className="grid grid-cols-[50%_24px_1fr] gap-2 text-sm leading-[1.2]">
       <span className="line-clamp-1 overflow-hidden">{data.title}</span>
