@@ -1,6 +1,21 @@
+export interface User {
+  country_code: string;
+  email: null;
+  firstName: null;
+  is_verify: number;
+  lastName: null;
+  phoneNumberStatus: string;
+  phoneNumberStatusMessage: string;
+  phoneno: number;
+  referral_code: string;
+  remaining_amt: string;
+  total_earned_amt: string;
+}
+
 type AuthState = {
   accessToken: string;
   isUserAuth: boolean;
+  userInfo: User | {};
 };
 
 // @ts-ignore
@@ -23,6 +38,7 @@ if (tokenData) {
 const initialState = {
   accessToken: access_token,
   isUserAuth: access_token ? true : false,
+  userInfo: {},
 };
 
 export default function authReducer(
@@ -31,7 +47,10 @@ export default function authReducer(
 ): AuthState {
   switch (action.type) {
     case "auth/setAccessToken":
-      return { isUserAuth: true, accessToken: action.payload };
+      return { ...state, isUserAuth: true, accessToken: action.payload };
+
+    case "auth/setUserInfo":
+      return { ...state, userInfo: action.payload };
 
     default:
       return state;

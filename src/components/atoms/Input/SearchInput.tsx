@@ -91,11 +91,11 @@ const SearchInput = ({
             ) : (
               <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
                 {searchData.map((product: Product, id: number) => (
-                  <ProductCard1 data={product} key={id} />
+                  <ProductCard1 data={product} key={id} from="search" />
                 ))}
               </div>
             )}
-          </div>
+          </div>  
         </div>
       )}
     </div>

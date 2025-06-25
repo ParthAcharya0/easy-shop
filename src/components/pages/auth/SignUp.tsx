@@ -18,6 +18,14 @@ type State = {
   error: any;
 };
 
+type Action =
+  | {
+      type: "setField";
+      payload: { key: keyof Omit<State, "error">; value: string | boolean };
+    }
+  | { type: "setError"; payload: Record<string, string> }
+  | { type: "reset"; payload: keyof State["error"] };
+
 const initialState = {
   firstName: "",
   lastName: "",
@@ -28,24 +36,17 @@ const initialState = {
   error: {},
 };
 
-function reducer(state: State, action: any) {
+function reducer(state: State, action: Action) {
   switch (action.type) {
-    case "setFname":
-      return { ...state, firstName: action.payload };
-    case "setLname":
-      return { ...state, lastName: action.payload };
-    case "setEmail":
-      return { ...state, email: action.payload };
-    case "setNumber":
-      return { ...state, phoneNumber: action.payload };
-    case "setPwd":
-      return { ...state, password: action.payload };
-    case "setChecked":
-      return { ...state, checked: !action.payload };
+    case "setField":
+      return {
+        ...state,
+        [action.payload.key]: action.payload.value,
+      };
     case "setError":
       return { ...state, error: { ...action.payload } };
     case "reset":
-      return { ...state, error: {} };
+      return { ...state, error: { ...state.error, [action.payload]: "" } };
 
     default:
       return state;
@@ -60,21 +61,13 @@ const SignUp = () => {
     state;
   const [btnState, setBtnState] = useState(true);
 
-  // let bState = useRef(true);
-  // let btnState = bState.current;
-
   //check validation
   useEffect(() => {
     if (firstName && lastName && email && phoneNumber && password && checked) {
       setBtnState(false);
-      console.log(btnState);
-      // console.log(bState.current);
-      // console.log("object");
     } else {
       setBtnState(true);
     }
-    //  dispatch({ type: "reset"})
-    // bState.current = true;
   }, [firstName, lastName, email, phoneNumber, password, checked]);
 
   // Validate func
@@ -118,8 +111,6 @@ const SignUp = () => {
     //Is Checked ?
     if (!checked) newErrors.checkbox = "mark checkbox";
 
-    // bState.current = Object.keys(newErrors).length !== 0;
-
     //Set in Local Reducer
     dispatch({ type: "setError", payload: newErrors });
 
@@ -137,7 +128,6 @@ const SignUp = () => {
       body: JSON.stringify({
         phoneno: phoneNumber.toString(),
         country_code: "+91",
-        // email,
       }),
     };
 
@@ -166,7 +156,6 @@ const SignUp = () => {
       setLoading(false);
       if (error.message === "User with given phone number already exists👀")
         navigate("/signInPhone");
-      // navigate(-1);
     }
   }
 
@@ -185,7 +174,7 @@ const SignUp = () => {
         <InputLable
           value={firstName}
           handleChange={dispatch}
-          actionType={"setFname"}
+          payloadKey={"firstName"}
           label="first name"
           placeholder="Enter first name"
           error={error.firstName}
@@ -193,7 +182,7 @@ const SignUp = () => {
         <InputLable
           value={lastName}
           handleChange={dispatch}
-          actionType={"setLname"}
+          payloadKey="lastName"
           label="last name"
           placeholder="Enter last name"
           error={error.lastName}
@@ -201,7 +190,7 @@ const SignUp = () => {
         <InputLable
           value={email}
           handleChange={dispatch}
-          actionType={"setEmail"}
+          payloadKey="email"
           label="email"
           placeholder="Enter e-mail address"
           type="email"
@@ -211,13 +200,14 @@ const SignUp = () => {
           label="Phone Number"
           value={phoneNumber}
           onChange={dispatch}
-          actionType="setNumber"
+          payloadKey="phoneNumber"
+          actionType="setField"
           error={error.phoneNumber}
         />
         <InputLable
           value={password}
           handleChange={dispatch}
-          actionType={"setPwd"}
+          payloadKey="password"
           label="password"
           placeholder="Enter Password"
           type="password"
@@ -225,7 +215,7 @@ const SignUp = () => {
         />
         <div>
           <label
-            className="flex items-baseline gap-3 accent-pink-500"
+            className="flex items-center gap-3 accent-pink-500"
             htmlFor="terms"
           >
             <input
@@ -233,8 +223,12 @@ const SignUp = () => {
               type="checkbox"
               id="terms"
               value={checked.toString()}
+              checked={checked}
               onClick={() =>
-                dispatch({ type: "setChecked", payload: state.checked })
+                dispatch({
+                  type: "setField",
+                  payload: { key: "checked", value: !state.checked },
+                })
               }
             />
             <span className="text-gray-400">

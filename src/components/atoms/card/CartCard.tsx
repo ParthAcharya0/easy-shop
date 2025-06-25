@@ -12,6 +12,7 @@ export type Cart = {
   label: string;
   actual_price: string;
   selling_price: string;
+  price?: string; // for order details
   discount_label: string;
   isFav: boolean;
   quantity: number;
@@ -25,8 +26,6 @@ const CartCard = ({ data }: { data: Cart }) => {
     dispatch(removeCartItem(data, cartItmes));
     toast.success("Items Removed Successfully.");
   }
-
-  console.log("cartItmes", data);
   return (
     <div className="relative z-0 flex w-full items-center justify-between gap-2 border-b border-gray-300 px-3 py-3 text-black">
       <button
@@ -56,6 +55,7 @@ const CartCard = ({ data }: { data: Cart }) => {
             if (data.quantity <= 1) {
               toast.error(
                 "At least 1 quantity is required. To delete the category, please click the delete button",
+                { id: "quantityNotify" },
               );
               // removeItem()
               return;

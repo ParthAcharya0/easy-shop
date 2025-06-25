@@ -1,5 +1,5 @@
 import ProductCard from "@/components/atoms/card/ProductCard";
-import { Products } from "@/utils/getProducts";
+import { Products } from "@/api/getProducts";
 
 const PopularProductList = ({
   data,

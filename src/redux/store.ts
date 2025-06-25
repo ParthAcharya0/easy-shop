@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/authSlice";
 import storeReducer from "./reducers/storeSlice";
 import cartReducer from "./reducers/cartSlice";
- 
+import addressReducer from "./reducers/addressSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +12,8 @@ const store = configureStore({
     storeData: storeReducer,
     // @ts-ignore
     cart: cartReducer,
+    // @ts-ignore
+    address: addressReducer,
   },
 });
 

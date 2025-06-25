@@ -30,6 +30,9 @@ export default function cartReducer(
     case "cart/setQuantity":
       return [...action.payload];
 
+    case "cart/setEmpty":
+      return [];
+
     default:
       return state;
   }

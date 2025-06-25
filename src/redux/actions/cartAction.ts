@@ -32,3 +32,7 @@ export function setQuantity(cartItem: Cart[], item: Cart, value: number) {
   });
   return { type: "cart/setQuantity", payload: data };
 }
+
+export function emptyCart() {
+  return { type: "cart/setEmpty" };
+}

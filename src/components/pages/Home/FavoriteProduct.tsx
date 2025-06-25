@@ -5,7 +5,6 @@ import { useAppSelector } from "@/redux/hooks";
 const FavoriteProduct = () => {
   const products = useAppSelector((state) => state.storeData.allProducts);
   const savedProduct = products.filter((product) => product.isFav === true);
-  console.log("saved", savedProduct);
 
   return (
     <div className="custom-scroll no-scrollbar h-full pb-5">

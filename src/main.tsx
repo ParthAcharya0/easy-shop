@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
       toastOptions={{
         // Define default options
         className: "",
-        duration: 5000,
+        duration: 4000,
         removeDelay: 1000,
         style: {
           background: "#fff",

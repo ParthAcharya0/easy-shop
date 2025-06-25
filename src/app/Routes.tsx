@@ -10,12 +10,15 @@ import FavoriteProduct from "@/components/pages/Home/FavoriteProduct";
 import Filter from "@/components/pages/Home/Filter";
 import NotFound from "@/components/pages/NotFound";
 import Order from "@/components/pages/Order/Order";
-import OrderDetail from "@/components/pages/OrderDetail";
-import Demo from "@/Demo";
+import OrderDetail from "@/components/pages/Order/OrderDetail";
+// import Demo from "@/Demo";
 import { JSX, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import { useAppSelector } from "@/redux/hooks";
 import CategoryProduct from "@/components/pages/CategoryProduct";
+import AllAddress from "@/components/pages/address/AllAddress";
+import AddAddress from "@/components/pages/address/AddAddress";
+import EditAddress from "@/components/pages/address/EditAddress";
 
 const Router = () => {
   const navigate = useNavigate();
@@ -30,7 +33,7 @@ const Router = () => {
 
   return (
     <Routes>
-      <Route path="/demo" element={<Demo />} />
+      {/* <Route path="/demo" element={<Demo />} /> */}
 
       <Route
         path="/login"
@@ -72,7 +75,10 @@ const Router = () => {
       <Route path="/categoryFilter" element={<CategoryFilter />} />
       <Route path="/category/:categoryDetails" element={<CategoryProduct />} />
       <Route path="/AllPopularProduct" element={<AllPopularProduct />} />
-      <Route path="/orderDetails" element={<OrderDetail />} />
+      <Route path="/orderDetails/:orderID" element={<OrderDetail />} />
+      <Route path="/address" element={<AllAddress />} />
+      <Route path="/add" element={<AddAddress />} />
+      <Route path="/edit" element={<EditAddress />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -86,7 +92,6 @@ const ProtcedRoute = ({ children }: { children: JSX.Element }) => {
     if (isUserAuth) {
       navigate("/");
     }
-    // console.log("object", isUserAuth);
   }, []);
 
   return <>{children}</>;

@@ -3,12 +3,14 @@ const InputWCountry = ({
   value,
   onChange,
   actionType,
+  payloadKey,
   error,
 }: {
   label: string;
   value: string;
   onChange: any;
   actionType?: string;
+  payloadKey?: string;
   error?: string | undefined;
 }) => {
   const [number, setNumber] = [value, onChange];
@@ -34,17 +36,24 @@ const InputWCountry = ({
           id="phoneNumber"
           value={number}
           inputMode="numeric"
-          onChange={(e) =>
-            e.target.value.length <= 10 &&
-            setNumber(
-              actionType === undefined
-                ? e.target.value
-                : { type: actionType, payload: e.target.value },
-            )
-          }
+          onChange={(e) => {
+            if (!(e.target.value.length <= 10)) return;
+
+            if (actionType === undefined) {
+              setNumber(e.target.value);
+            } else {
+              setNumber({
+                type: actionType,
+                payload: { key: payloadKey, value: e.target.value },
+              });
+              setNumber({ type: "reset", payload: payloadKey });
+            }
+          }}
         />
       </div>
-      {value && error && <p className="text-red-600 text-nowrap text-base">*{error}</p>}
+      {value && error && (
+        <p className="text-base text-nowrap text-red-600">*{error}</p>
+      )}
     </label>
   );
 };

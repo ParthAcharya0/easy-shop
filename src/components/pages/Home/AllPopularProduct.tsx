@@ -36,10 +36,7 @@ const AllPopularProduct = () => {
   const categoryData = allProducts.filter(
     (product) => product.category_id === category,
   );
-  useEffect(() => {
-    console.log("loa---", loading, searchData);
-  }, [loading]);
-  
+
   const products =
     category === 0
       ? allProducts.slice(
@@ -55,11 +52,6 @@ const AllPopularProduct = () => {
     category === 0
       ? Math.ceil(allProducts.length / showProducts)
       : Math.ceil(categoryData.length / showProducts);
-
-  // console.log("category", category);
-  // console.log("total-page", totalPage);
-  // console.log("page", page);
-  console.log(loading);
 
   useEffect(() => {
     storeData.length === 0 && getStore(access);
@@ -115,6 +107,7 @@ const AllPopularProduct = () => {
                 {totalPage !== 1 && (
                   <div className="flex justify-center gap-2 py-6 text-lg font-medium capitalize">
                     <button
+                      className="cursor-pointer capitalize"
                       onClick={() => setPage((prev) => prev - 1)}
                       disabled={page <= 0}
                     >
@@ -122,6 +115,7 @@ const AllPopularProduct = () => {
                     </button>
                     <span>{page + 1}</span>
                     <button
+                      className="cursor-pointer capitalize"
                       onClick={() => setPage((prev) => prev + 1)}
                       disabled={page + 1 >= totalPage}
                     >
@@ -142,13 +136,13 @@ const AllPopularProduct = () => {
           <span className="loader w-2xl"></span>
         </div>
       ) : searchData.length === 0 ? (
-        <p className="flex h-[70dvh] text-xl w-full items-center justify-center text-center font-medium capitalize">
+        <p className="flex h-[70dvh] w-full items-center justify-center text-center text-xl font-medium capitalize">
           no products available
         </p>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
           {searchData.map((product: Product, id: number) => (
-            <ProductCard1 data={product} key={id} />
+            <ProductCard1 data={product} key={id} from="search" />
           ))}
         </div>
       )}

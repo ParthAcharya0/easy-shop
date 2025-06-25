@@ -6,7 +6,10 @@ import { setProducts, setStoreData } from "@/redux/actions/storeAction";
 const refreshToken =
   localStorage.AUTH_TOKEN && JSON.parse(localStorage.AUTH_TOKEN).refreshToken;
 
-const getStore = async (accessToken: string) => {
+const getStore = async (
+  accessToken: string,
+  loading?: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   const options = {
     method: "GET",
     headers: {
@@ -15,6 +18,7 @@ const getStore = async (accessToken: string) => {
   };
 
   try {
+    loading && loading(true);
     const res = await fetch(
       "https://instacart-xqwi.onrender.com/store/collection/store/1",
       options,
@@ -28,13 +32,15 @@ const getStore = async (accessToken: string) => {
 
     store.dispatch(setStoreData(storeData.data));
     store.dispatch(setProducts(storeData.data));
+    loading && loading(false);
   } catch (error: any) {
     console.log(error.message);
     if (error.message === "403") {
       const newToken = await refreshAccess(refreshToken);
-      newToken === null && newToken && getStore(newToken);
+      newToken === null && newToken && getStore(newToken, loading);
     }
     toast.error(error.message);
+    loading && loading(false);
     return null;
   }
 };

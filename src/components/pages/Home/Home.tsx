@@ -7,21 +7,22 @@ import NProductList from "@/components/molecules/CardList/NProductList";
 import CategoryList from "@/components/molecules/CardList/CategoryList";
 import Swipper from "@/components/atoms/swipper/Swipper";
 import { useAppSelector } from "@/redux/hooks";
-import { useEffect } from "react";
-// import getUserInfo from "@/api/getUser";
+import { useEffect, useState } from "react";
+import getUserInfo from "@/api/getUser";
 import getStore from "@/api/getStore";
 
 const Home = () => {
   const storeData = useAppSelector((state) => state.storeData);
   const auth = useAppSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
   const store = storeData.data;
   const allProducts = storeData.allProducts;
   const access = auth.accessToken;
 
   useEffect(() => {
     if (access.length >= 2) {
-      // getUserInfo(access);
-      store.length === 0 && getStore(access);
+      Object.keys(auth.userInfo).length === 0 && getUserInfo(access);
+      store.length === 0 && getStore(access, setLoading);
     }
   }, []);
 
@@ -41,7 +42,7 @@ const Home = () => {
             subHeading="View all"
             to="/AllPopularProduct"
           />
-          {store.length === 0 ? (
+          {loading ? (
             <p className="flex h-44 items-center justify-center text-center font-medium">
               <span className="loader w-2xl"></span>
             </p>
@@ -60,7 +61,7 @@ const Home = () => {
             subHeading="View all"
             to="/categoryFilter"
           />
-          {store.length === 0 ? (
+          {loading ? (
             <p className="flex h-44 items-center justify-center text-center font-medium">
               <span className="loader w-2xl"></span>
             </p>
@@ -75,7 +76,7 @@ const Home = () => {
             subHeading="View all"
             to="/AllPopularProduct"
           />
-          {store.length === 0 ? (
+          {loading ? (
             <p className="flex h-44 items-center justify-center text-center font-medium">
               <span className="loader w-2xl"></span>
             </p>

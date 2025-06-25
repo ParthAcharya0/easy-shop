@@ -1,7 +1,6 @@
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router";
 
-
 const BackBtn = ({ size, to = -1 }: { size: number; to?: string | -1 }) => {
   const navigate = useNavigate();
 
@@ -9,10 +8,10 @@ const BackBtn = ({ size, to = -1 }: { size: number; to?: string | -1 }) => {
     <button
       className="cursor-pointer"
       onClick={() => {
-       if (typeof to === "number") {
-          navigate(to); // go back
+        if (typeof to === "string") {
+          navigate(to); // navigate to a path
         } else {
-          navigate(to); // go to path
+          navigate(to); // navigate with delta (-1)
         }
       }}
     >

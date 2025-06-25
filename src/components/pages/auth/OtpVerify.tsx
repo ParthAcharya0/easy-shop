@@ -252,7 +252,7 @@ const OtpVerify = () => {
           </div>
           {!loading ? (
             <Button to="" state={isOtpComplete} eventHandler={handleSubmit}>
-              Send OTP
+              OTP Verify
             </Button>
           ) : (
             <p className="text-center font-medium">

@@ -1,12 +1,14 @@
 import toast from "react-hot-toast";
 import refreshAccess from "./refreshAccess";
-import store from "@/redux/store";
-import { setUser } from "@/redux/actions/authAction";
 
 const refreshToken =
   localStorage.AUTH_TOKEN && JSON.parse(localStorage.AUTH_TOKEN).refreshToken;
 
-const getUserInfo = async (accessToken: string) => {
+const getOrderDetails = async (
+  accessToken: string,
+  categoryID: string,
+  loading: (value: React.SetStateAction<boolean>) => void,
+) => {
   const options = {
     method: "GET",
     headers: {
@@ -15,24 +17,25 @@ const getUserInfo = async (accessToken: string) => {
   };
 
   try {
+    loading(true);
     const res = await fetch(
-      "https://instacart-xqwi.onrender.com/userprofile/information",
+      `https://instacart-xqwi.onrender.com/orders/my-orders/orderdetail?orderId=${categoryID}`,
       options,
     );
     if (!res.ok) throw new Error(res.status.toString());
 
-    const userData = await res.json();
-    if (userData.status !== "success")
-      throw new Error(userData.statusCode.toString());
+    const orderList = await res.json();
+    if (orderList.status !== "success")
+      throw new Error(orderList.statusCode.toString());
 
-    store.dispatch(setUser(userData.data.userData));
-    console.log(userData.data.userData);
+    loading(false);
+    return orderList.data?.orderData;
   } catch (error: any) {
     console.log(error.message);
     if (error.message === "403") {
       const newToken = await refreshAccess(refreshToken);
       console.log(newToken);
-      newToken && getUserInfo(newToken);
+      newToken && getOrderDetails(newToken, categoryID, loading);
     }
 
     toast.error(error.message);
@@ -40,4 +43,4 @@ const getUserInfo = async (accessToken: string) => {
   }
 };
 
-export default getUserInfo;
+export default getOrderDetails;

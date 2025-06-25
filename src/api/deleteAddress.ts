@@ -1,43 +1,44 @@
 import toast from "react-hot-toast";
 import refreshAccess from "./refreshAccess";
-import store from "@/redux/store";
-import { setUser } from "@/redux/actions/authAction";
+import getAddress from "./getAddress";
 
 const refreshToken =
   localStorage.AUTH_TOKEN && JSON.parse(localStorage.AUTH_TOKEN).refreshToken;
 
-const getUserInfo = async (accessToken: string) => {
+const deleteAddress = async (accessToken: string, addressID: number) => {
   const options = {
-    method: "GET",
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
     },
   };
 
   try {
     const res = await fetch(
-      "https://instacart-xqwi.onrender.com/userprofile/information",
+      `https://instacart-xqwi.onrender.com/addresses/${addressID}/delete-address`,
       options,
     );
+    console.log(res);
     if (!res.ok) throw new Error(res.status.toString());
 
-    const userData = await res.json();
-    if (userData.status !== "success")
-      throw new Error(userData.statusCode.toString());
+    const address = await res.json();
+    if (address.status !== "success")
+      throw new Error(address.statusCode.toString());
 
-    store.dispatch(setUser(userData.data.userData));
-    console.log(userData.data.userData);
+    toast.success(address.msg);
+    getAddress(accessToken);
+    return true;
   } catch (error: any) {
     console.log(error.message);
     if (error.message === "403") {
       const newToken = await refreshAccess(refreshToken);
       console.log(newToken);
-      newToken && getUserInfo(newToken);
+      newToken && deleteAddress(newToken, addressID);
     }
-
     toast.error(error.message);
-    return null;
+    return false;
   }
 };
 
-export default getUserInfo;
+export default deleteAddress;

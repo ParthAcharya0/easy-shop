@@ -1,12 +1,11 @@
-// import { useState } from "react";
-import SearchInput from "./components/atoms/Input/SearchInput";
-import Menu from "./components/atoms/menus/Menu";
-// import ProductCard from "./components/atoms/card/ProductCard";
 // import CartCard from "./components/atoms/card/CartCard";
-import HeaderLink from "./components/atoms/text/HeaderLink";
-import OrderCard from "./components/atoms/card/OrderCard";
+// import ProductCard from "./components/atoms/card/ProductCard";
 // import SummaryCard from "./components/atoms/card/SummaryCard";
-import AddressCard from "./components/atoms/card/AddressCard";
+// import AddressCard from "./components/atoms/card/AddressCard";
+import Menu from "./components/atoms/menus/Menu";
+import OrderCard from "./components/atoms/card/OrderCard";
+import HeaderLink from "./components/atoms/text/HeaderLink";
+import SearchInput from "./components/atoms/Input/SearchInput";
 import ResendOtpBtn from "./components/atoms/Button/ResendOtpBtn";
 
 function Demo() {
@@ -63,10 +62,10 @@ function Demo() {
         {/* <SummaryCard /> */}
       </div>
       <div className="border border-amber-500 py-3">
-        <AddressCard />
+        {/* <AddressCard /> */}
       </div>
       <div className="border border-amber-500 py-3">
-        <ResendOtpBtn handler={()=>{}} />
+        <ResendOtpBtn handler={() => {}} />
       </div>
     </div>
   );

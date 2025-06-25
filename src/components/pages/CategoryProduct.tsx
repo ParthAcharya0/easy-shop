@@ -13,8 +13,7 @@ const CategoryProduct = () => {
   const categoryData = allProducts.filter(
     (product) => product.category_id.toString() === categoryID,
   );
-  console.log("category", categoryData);
-  console.log("all product", allProducts);
+
   return (
     <div className="custom-scroll no-scrollbar h-full pb-5">
       <div className="relative flex justify-center py-4">

@@ -10,9 +10,11 @@ import toast from "react-hot-toast";
 const ProductCard1 = ({
   variant = false,
   data,
+  from,
 }: {
   variant?: boolean;
   data: Product;
+  from?: string;
 }) => {
   const cartdata = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -41,20 +43,22 @@ const ProductCard1 = ({
           src={data.image}
           alt=""
         />
-        <div className="absolute top-3 right-2 ml-auto h-fit">
-          {variant ? (
-            <DustbinBtn />
-          ) : (
-            <LikeBtn
-              state={{
-                catID: data.category_id,
-                subCID: data.subcategory_id,
-                productID: data.id,
-                fav: data.isFav,
-              }}
-            />
-          )}
-        </div>
+        {!from && (
+          <div className="absolute top-3 right-2 ml-auto h-fit">
+            {variant ? (
+              <DustbinBtn />
+            ) : (
+              <LikeBtn
+                state={{
+                  catID: data.category_id,
+                  subCID: data.subcategory_id,
+                  productID: data.id,
+                  fav: data.isFav,
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
       <div className="rounded-md bg-[rgba(255,255,255,0.22)] px-3 py-2.5 text-base backdrop-blur-sm">
         <h4 className="line-clamp-2 py-0 font-medium capitalize">
