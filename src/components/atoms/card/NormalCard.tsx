@@ -1,5 +1,5 @@
-import DustbinBtn from "../Button/DustbinBtn";
-import LikeBtn from "../Button/LikeBtn";
+import DeleteButton from "../button/DeleteButton";
+import LikeBtn from "../button/LikeButton";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { Product } from "./ProductCard";
 import { AiOutlineShopping } from "react-icons/ai";
@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addCartItem } from "@/redux/actions/cartAction";
 import toast from "react-hot-toast";
 
-const ProductCard1 = ({
+const NormalCard = ({
   variant = false,
   data,
   from,
@@ -32,7 +32,6 @@ const ProductCard1 = ({
     dispatch(addCartItem(data));
     toast.success("successfully added to cart");
   }
-  // console.log(data);
   return (
     <div className="flex w-full min-w-44 flex-col justify-between rounded-md text-black">
       <div
@@ -46,7 +45,7 @@ const ProductCard1 = ({
         {!from && (
           <div className="absolute top-3 right-2 ml-auto h-fit">
             {variant ? (
-              <DustbinBtn />
+              <DeleteButton />
             ) : (
               <LikeBtn
                 state={{
@@ -61,16 +60,23 @@ const ProductCard1 = ({
         )}
       </div>
       <div className="rounded-md bg-[rgba(255,255,255,0.22)] px-3 py-2.5 text-base backdrop-blur-sm">
-        <h4 className="line-clamp-2 py-0 font-medium capitalize">
+        <h4 className="line-clamp-2 py-0 font-medium capitalize max-w-[86%]">
           {data.title}
         </h4>
         <div className="flex flex-col gap-0.5">
-          <span>{data.selling_price}$</span>
+          <span>
+            <span>${data.selling_price}</span>{" "}
+            <span className="font-light line-through">
+              ${data.actual_price}
+            </span>
+          </span>
           {!variant && (
             <div className="flex items-end justify-between">
               <span className="inline-flex items-center gap-1 text-amber-700">
                 <RiDiscountPercentFill />
-                10% <span className="font-medium">off</span>
+                {(parseInt(data.actual_price) - parseInt(data.selling_price)) /
+                  parseInt(data.actual_price)}{" "}
+                <span className="font-medium">off</span>
               </span>
               <button
                 className="cursor-pointer rounded-md bg-[#a8a6a6] p-2 text-xl backdrop-blur-sm"
@@ -86,9 +92,9 @@ const ProductCard1 = ({
   );
 };
 
-export default ProductCard1;
+export default NormalCard;
 
-// const oldProductCard1 = ({
+// const oldNormalCard = ({
 //   variant = false,
 //   data,
 // }: {
@@ -107,7 +113,7 @@ export default ProductCard1;
 //           alt=""
 //         />
 //         <div className="absolute top-3 right-2 ml-auto h-fit">
-//           {variant ? <DustbinBtn /> : <LikeBtn />}
+//           {variant ? <DeleteButton /> : <LikeBtn />}
 //         </div>
 //       </div>
 //       <div className="rounded-md bg-[rgba(255,255,255,0.22)] px-3 py-2.5 text-base backdrop-blur-sm">

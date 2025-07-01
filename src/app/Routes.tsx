@@ -4,13 +4,13 @@ import SignInPhone from "@/components/pages/auth/SignInPhone";
 import SignUp from "@/components/pages/auth/SignUp";
 import OtpVerify from "@/components/pages/auth/OtpVerify";
 import Cart from "@/components/pages/Cart";
-import AllPopularProduct from "@/components/pages/Home/AllPopularProduct";
-import CategoryFilter from "@/components/pages/Home/CategoryFilter";
-import FavoriteProduct from "@/components/pages/Home/FavoriteProduct";
-import Filter from "@/components/pages/Home/Filter";
+import AllPopularProduct from "@/components/pages/home/AllPopularProduct";
+import CategoryFilter from "@/components/pages/home/CategoryFilter";
+import FavoriteProduct from "@/components/pages/home/FavoriteProduct";
+import Filter from "@/components/pages/home/Filter";
 import NotFound from "@/components/pages/NotFound";
-import Order from "@/components/pages/Order/Order";
-import OrderDetail from "@/components/pages/Order/OrderDetail";
+import Order from "@/components/pages/order/Order";
+import OrderDetail from "@/components/pages/order/OrderDetail";
 // import Demo from "@/Demo";
 import { JSX, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router";
@@ -33,8 +33,6 @@ const Router = () => {
 
   return (
     <Routes>
-      {/* <Route path="/demo" element={<Demo />} /> */}
-
       <Route
         path="/login"
         element={

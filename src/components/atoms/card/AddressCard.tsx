@@ -1,6 +1,6 @@
 import { SelectedAddress } from "@/redux/reducers/addressSlice";
 import { GiCheckMark } from "react-icons/gi";
-import DropDown from "../DropDown/DropDown";
+import DropDown from "../dropDown/DropDown";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import deleteAddress from "@/api/deleteAddress";
 import { useNavigate } from "react-router";

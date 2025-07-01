@@ -1,19 +1,19 @@
 import getStore from "@/api/getStore";
-import BackBtn from "@/components/atoms/Button/BackBtn";
+import BackBtn from "@/components/atoms/button/BackButton";
 import CategoryCard from "@/components/atoms/card/CategoryCard";
 import { Product } from "@/components/atoms/card/ProductCard";
-import ProductCard1 from "@/components/atoms/card/ProductCard1";
-import SearchInput from "@/components/atoms/Input/SearchInput";
+import NormalCard from "@/components/atoms/card/NormalCard";
+import SearchInput from "@/components/atoms/input/SearchInput";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 
 const colorTheme = [
-  "bg-purple-500 text-purple-900",
-  "bg-green-200 text-green-600",
-  "bg-orange-200 text-amber-600",
-  "bg-yellow-100 text-yellow-500",
-  "bg-blue-200 text-blue-600",
-  "bg-pink-200 text-pink-600",
+  "bg-purple-300 text-purple-900 border-purple-900",
+  "bg-green-200 text-green-600 border-green-600",
+  "bg-orange-200 text-amber-600 border-amber-600",
+  "bg-yellow-100 text-yellow-500 border-yellow-500",
+  "bg-blue-200 text-blue-600 border-blue-600",
+  "bg-pink-200 text-pink-600 border-pink-600",
 ];
 
 const AllPopularProduct = () => {
@@ -57,12 +57,14 @@ const AllPopularProduct = () => {
     storeData.length === 0 && getStore(access);
   }, []);
   return (
-    <div className="custom-scroll no-scrollbar h-full pb-5">
+    <div className="custom-scroll no-scrollbar h-full">
       <div className="relative flex justify-center py-4">
         <div className="absolute top-0 bottom-0 left-2 my-auto -mb-[2.8px] h-fit">
           <BackBtn size={40} />
         </div>
-        <h1 className="heading2 py-0">Popular Product</h1>
+        <h1 className="pt-3 text-xl font-semibold text-black">
+          Popular Products
+        </h1>
       </div>
       <div className="px-4 py-2">
         <SearchInput setData={setSearchData} setLoading={setLoading} />
@@ -77,7 +79,7 @@ const AllPopularProduct = () => {
             ) : (
               categoryList.map((categorys: any, index: number) => (
                 <button
-                  className={`${category === categorys.category_id ? "rounded-md outline-3 outline-offset-2 outline-pink-600" : ""} cursor-pointer text-nowrap`}
+                  className={`cursor-pointer text-nowrap`}
                   key={index}
                   onClick={() => {
                     setCategory(categorys.category_id);
@@ -86,7 +88,7 @@ const AllPopularProduct = () => {
                 >
                   <CategoryCard
                     data={categorys}
-                    className={colorTheme[index % colorTheme.length]}
+                    className={`${colorTheme[index % colorTheme.length]} ${category === categorys.category_id ? "border-1" : "border-0"} min-w-[210px] border px-4`}
                   />
                 </button>
               ))
@@ -99,9 +101,9 @@ const AllPopularProduct = () => {
               </p>
             ) : products.length > 0 ? (
               <>
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-4">
                   {products.map((product: Product, id: number) => (
-                    <ProductCard1 key={id} data={product} />
+                    <NormalCard key={id} data={product} />
                   ))}
                 </div>
                 {totalPage !== 1 && (
@@ -142,7 +144,7 @@ const AllPopularProduct = () => {
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
           {searchData.map((product: Product, id: number) => (
-            <ProductCard1 data={product} key={id} from="search" />
+            <NormalCard data={product} key={id} from="search" />
           ))}
         </div>
       )}

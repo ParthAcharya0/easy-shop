@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa";
-import LikeBtn from "../Button/LikeBtn";
+import LikeBtn from "../button/LikeButton";
 import { AiOutlineShopping } from "react-icons/ai";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { addCartItem } from "@/redux/actions/cartAction";
@@ -59,10 +59,18 @@ const ProductCard = ({ details }: { details: Product }) => {
         </h4>
         <div className="flex items-center justify-between gap-2 text-xs font-light">
           <div className="flex flex-col gap-1">
-            <span>${details.selling_price}</span>
+            <span>
+              <span>${details.selling_price}</span>{" "}
+              <span className="font-light line-through">
+                ${details.actual_price}
+              </span>
+            </span>
             <span className="inline-flex items-center gap-1">
               <RiDiscountPercentFill />
-              10% <span className="font-medium">off</span>
+              {(parseInt(details.actual_price) -
+                parseInt(details.selling_price)) /
+                parseInt(details.actual_price)}{" "}
+              <span className="font-medium">off</span>
             </span>
           </div>
           <button

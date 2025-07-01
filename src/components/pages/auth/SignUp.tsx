@@ -1,9 +1,9 @@
 import { AUTH_URL } from "@/app/url";
-import BackBtn from "@/components/atoms/Button/BackBtn";
-import Button from "@/components/atoms/Button/Button";
-import InputLable from "@/components/atoms/Input/InputLable";
+import BackBtn from "@/components/atoms/button/BackButton";
+import Button from "@/components/atoms/button/Button";
+import InputLable from "@/components/atoms/input/InputLable";
 import Header from "@/components/atoms/text/Header";
-import InputWCountry from "@/components/molecules/Login/InputWCountry";
+import InputWCountry from "@/components/molecules/login/InputWCountry";
 import { useEffect, useReducer, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
@@ -55,6 +55,7 @@ function reducer(state: State, action: Action) {
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { firstName, lastName, email, phoneNumber, password, checked, error } =
@@ -127,7 +128,7 @@ const SignUp = () => {
       },
       body: JSON.stringify({
         phoneno: phoneNumber.toString(),
-        country_code: "+91",
+        country_code: countryCode,
       }),
     };
 
@@ -198,6 +199,8 @@ const SignUp = () => {
         />
         <InputWCountry
           label="Phone Number"
+          selectValue={countryCode}
+          onSelect={setCountryCode}
           value={phoneNumber}
           onChange={dispatch}
           payloadKey="phoneNumber"

@@ -1,4 +1,4 @@
-import { type Order } from "@/components/molecules/Tab/Tab";
+import { type Order } from "@/components/molecules/tab/Tab";
 import { Link } from "react-router";
 
 const OrderCard = ({ data }: { data: Order }) => {

@@ -1,7 +1,7 @@
 import { AUTH_URL } from "@/app/url";
-import BackBtn from "@/components/atoms/Button/BackBtn";
-import Button from "@/components/atoms/Button/Button";
-import ResendOtpBtn from "@/components/atoms/Button/ResendOtpBtn";
+import BackBtn from "@/components/atoms/button/BackButton";
+import Button from "@/components/atoms/button/Button";
+import ResendOtpBtn from "@/components/atoms/button/ResendOtpButton";
 import Header from "@/components/atoms/text/Header";
 import { setAccessToken } from "@/redux/actions/authAction";
 import { useAppDispatch } from "@/redux/hooks";
@@ -52,15 +52,28 @@ const OtpVerify = () => {
   //Otp Field Func
   function handleInput(e: React.ChangeEvent<HTMLInputElement>, i: number) {
     const value = e.target.value;
+    console.log("value---->", i < 5);
+    if (value.length === 2 && i < 5) {
+      setOtp((prev) => {
+        const newotp = [...prev];
+        newotp[i + 1] = value.split("")[1];
+        console.log("newotp from handel---->", newotp, i);
+        return newotp;
+      });
+      const nextInput =
+        e.target.parentElement?.nextElementSibling?.querySelector("input");
+      nextInput?.focus();
+
+      return;
+    }
+    if (!value.length) return;
     if (!/^[0-9]?$/.test(value)) return; // Allow only digits
 
     setOtp((prev) => {
-      if (prev[i] === "") {
-        const newotp = [...prev];
-        newotp[i] = e.target.value;
-        return newotp;
-      }
-      return prev;
+      const newotp = [...prev];
+      newotp[i] = e.target.value;
+      console.log("newotp from handel---->", newotp);
+      return newotp;
     });
 
     if (value && e.target.nextSibling instanceof HTMLElement) {
@@ -71,10 +84,12 @@ const OtpVerify = () => {
   }
 
   function handleKey(e: React.KeyboardEvent<HTMLInputElement>, i: number) {
+    // console.log("event", e);
     if (e.key === "Backspace") {
       setOtp((prev) => {
         const newotp = [...prev];
         newotp[i] = "";
+        console.log("newotp---->", newotp);
         return newotp;
       });
 

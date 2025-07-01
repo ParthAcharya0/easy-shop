@@ -1,5 +1,5 @@
-import BackBtn from "@/components/atoms/Button/BackBtn";
-import ProductCard1 from "@/components/atoms/card/ProductCard1";
+import BackBtn from "@/components/atoms/button/BackButton";
+import NormalCard from "@/components/atoms/card/NormalCard";
 import { useAppSelector } from "@/redux/hooks";
 
 const FavoriteProduct = () => {
@@ -17,7 +17,7 @@ const FavoriteProduct = () => {
       {savedProduct.length > 0 ? (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
           {savedProduct.map((data) => (
-            <ProductCard1 data={data} />
+            <NormalCard data={data} />
           ))}
         </div>
       ) : (

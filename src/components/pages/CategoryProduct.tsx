@@ -1,6 +1,6 @@
-import BackBtn from "@/components/atoms/Button/BackBtn";
+import BackBtn from "@/components/atoms/button/BackButton";
 import { Product } from "@/components/atoms/card/ProductCard";
-import ProductCard1 from "@/components/atoms/card/ProductCard1";
+import NormalCard from "@/components/atoms/card/NormalCard";
 import { useAppSelector } from "@/redux/hooks";
 import { useParams } from "react-router";
 
@@ -30,7 +30,7 @@ const CategoryProduct = () => {
         ) : categoryData.length !== 0 ? (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
             {categoryData.map((product: Product, id: number) => (
-              <ProductCard1 data={product} key={id} />
+              <NormalCard data={product} key={id} />
             ))}
           </div>
         ) : (

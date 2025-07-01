@@ -28,17 +28,20 @@ const getOrders = async (
       throw new Error(orderList.statusCode.toString());
 
     loading(false);
+    console.log("object");
     return orderList.data?.current_orders?.pickup_orders?.orders;
   } catch (error: any) {
     console.log(error.message);
     if (error.message === "403") {
       const newToken = await refreshAccess(refreshToken);
       console.log(newToken);
-      newToken && getOrders(newToken, loading);
+      if (newToken) {
+        return await getOrders(newToken, loading);
+      }
     }
 
     toast.error(error.message);
-    return null;
+    // return null;
   }
 };
 

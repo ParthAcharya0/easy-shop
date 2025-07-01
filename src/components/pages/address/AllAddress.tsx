@@ -1,5 +1,5 @@
-import Button from "@/components/atoms/Button/Button";
-import BackBtn from "../../atoms/Button/BackBtn";
+import Button from "@/components/atoms/button/Button";
+import BackBtn from "../../atoms/button/BackButton";
 import HeaderLink from "../../atoms/text/HeaderLink";
 import { useEffect, useState } from "react";
 import getAddress from "@/api/getAddress";
@@ -44,7 +44,7 @@ const AllAddress = () => {
     dispatch(setCurrentAddress(selected));
     navigator("/cart");
   }
-  
+
   return (
     <div className="custom-scroll no-scrollbar flex h-full flex-col p-3 pb-5">
       <div className="relative flex justify-center py-4">

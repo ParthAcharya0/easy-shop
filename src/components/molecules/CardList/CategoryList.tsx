@@ -2,7 +2,7 @@ import CategoryCard from "@/components/atoms/card/CategoryCard";
 import { Link } from "react-router";
 
 const colorTheme = [
-  "bg-purple-500 text-purple-900",
+  "bg-purple-300 text-purple-900",
   "bg-green-200 text-green-600",
   "bg-orange-200 text-amber-600",
   "bg-yellow-100 text-yellow-500",

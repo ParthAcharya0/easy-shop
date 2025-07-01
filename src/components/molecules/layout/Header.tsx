@@ -1,4 +1,4 @@
-import CartBtn from "@/components/atoms/Button/CartBtn";
+import CartBtn from "@/components/atoms/button/CartButton";
 import { CiHeart } from "react-icons/ci";
 import { IoLogoOctocat } from "react-icons/io5";
 import { Link } from "react-router";
@@ -14,8 +14,8 @@ const Header = () => {
           id="location"
         >
           <option value="New-York">New York, USA</option>
-          <option value="New-York">New York, USA</option>
-          <option value="New-York">New York, USA</option>
+          <option value="New-York">ACV, USA</option>
+          <option value="New-York">CBS, USA</option>
         </select>
       </div>
       <div className="absolute inset-0 m-auto h-fit w-fit">

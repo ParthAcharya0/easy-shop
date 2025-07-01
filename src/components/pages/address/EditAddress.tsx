@@ -1,8 +1,8 @@
 import editAddress from "@/api/editAddress";
-import BackBtn from "@/components/atoms/Button/BackBtn";
-import Button from "@/components/atoms/Button/Button";
-import InputLable from "@/components/atoms/Input/InputLable";
-import Select from "@/components/atoms/Input/Select";
+import BackBtn from "@/components/atoms/button/BackButton";
+import Button from "@/components/atoms/button/Button";
+import InputLable from "@/components/atoms/input/InputLable";
+import Select from "@/components/atoms/input/Select";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { GetCity, GetCountries, GetState } from "react-country-state-city";

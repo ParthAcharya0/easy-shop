@@ -1,7 +1,7 @@
 import { RiHome4Line } from "react-icons/ri";
-import BackBtn from "../atoms/Button/BackBtn";
+import BackBtn from "../atoms/button/BackButton";
 import { Link, useNavigate } from "react-router";
-import Button from "../atoms/Button/Button";
+import Button from "../atoms/button/Button";
 import CartCard, { type Cart } from "../atoms/card/CartCard";
 import SummaryCard from "../atoms/card/SummaryCard";
 import HeaderLink from "../atoms/text/HeaderLink";
@@ -92,19 +92,22 @@ const Cart = () => {
       use_referral_bonus: false,
 
       pickup_address_id: 1,
-      pickup_day: `${today.toDateString().split(" ")[2]} ${today.toDateString().split(" ")[1]}`,
+      pickup_day: `${today.toDateString()}`,
+      // pickup_day: `${today.toDateString().split(" ")[2]} ${today.toDateString().split(" ")[1]}`,
       pickup_slot: "11:35-11:45pm",
       pickup_fee: deliveryCharges,
     };
 
-    placeOrder(accessToken, orderDetails, setLoading);
+    placeOrder(accessToken, orderDetails, setLoading).then(() =>
+      navigator("/"),
+    );
   }
 
   if (cartData.length === 0) {
     return (
       <>
         <div className="flex shrink-0 items-center justify-between px-3 py-3">
-          <BackBtn size={32} />
+          <BackBtn size={32} to={"/"} />
           <h2 className="heading2">Cart</h2>
           <Link to="/">
             <RiHome4Line size={30} />

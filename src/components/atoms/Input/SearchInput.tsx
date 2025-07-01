@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { CiFilter, CiSearch } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router";
-import ProductCard1 from "../card/ProductCard1";
+import NormalCard from "../card/NormalCard";
 import { Product } from "../card/ProductCard";
 
 const SearchInput = ({
@@ -46,15 +46,15 @@ const SearchInput = ({
     <div className="relative">
       <div className="z-50 flex items-center gap-2">
         <div className="relative grow">
-          <div className="absolute top-0 bottom-0 left-2 my-auto h-fit">
-            <CiSearch size={20} />
+          <div className="absolute top-0 bottom-0 left-3.5 my-auto h-fit">
+            <CiSearch size={20} color="grey" />
           </div>
           <input
-            className="w-full rounded-lg bg-gray-200 px-8 py-2.5 focus-within:outline-0"
+            className="w-full rounded-lg bg-gray-100 px-10 py-3.5 focus-within:outline-0 placeholder:text-md"
             type="text"
             name="search"
             value={input}
-            placeholder="Serach Product here"
+            placeholder="Search Product here"
             onChange={(e) => setInput(e.currentTarget.value)}
           />
           <button
@@ -67,7 +67,7 @@ const SearchInput = ({
           </button>
         </div>
         <Link to="/filter">
-          <button className="cursor-pointer rounded-xl bg-gray-200 p-2.5">
+          <button className="cursor-pointer rounded-xl bg-gray-100 p-3.5 h-full">
             <CiFilter size={24} />
           </button>
         </Link>
@@ -91,11 +91,11 @@ const SearchInput = ({
             ) : (
               <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
                 {searchData.map((product: Product, id: number) => (
-                  <ProductCard1 data={product} key={id} from="search" />
+                  <NormalCard data={product} key={id} from="search" />
                 ))}
               </div>
             )}
-          </div>  
+          </div>
         </div>
       )}
     </div>

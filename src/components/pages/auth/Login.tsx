@@ -1,5 +1,5 @@
 import { IMAGES } from "@/app/images/images";
-import Button from "@/components/atoms/Button/Button";
+import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
 import { useEffect } from "react";
 import { FaApple, FaFacebook } from "react-icons/fa";
@@ -33,7 +33,7 @@ const Login = () => {
       <div className="px-[12%]">
         <Button to="/signInPhone">Login with Phone Number</Button>
       </div>
-      <div className="relative z-0 mx-[12%] flex justify-center uppercase">
+      {/* <div className="relative z-0 mx-[12%] flex justify-center uppercase">
         <div className="absolute inset-0 z-[-1] my-auto h-[2px] bg-gradient-to-r from-white via-gray-400 to-white"></div>
         <span className="sub-heading z-10 inline-block bg-white px-3 font-medium">
           or Login With
@@ -49,7 +49,7 @@ const Login = () => {
         <div className="rounded-2xl border border-gray-300 p-3">
           <FaApple size={34} />
         </div>
-      </div>
+      </div> */}
       <div className="pb-10 text-center">
         <p className="sub-heading">
           Don't have an account?

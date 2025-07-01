@@ -1,10 +1,10 @@
-import SearchInput from "@/components/atoms/Input/SearchInput";
+import SearchInput from "@/components/atoms/input/SearchInput";
 import HeaderLink from "@/components/atoms/text/HeaderLink";
 import Header from "@/components/molecules/layout/Header";
 import Footer from "@/components/molecules/layout/Footer";
-import PopularProductList from "@/components/molecules/CardList/PopularProductList";
-import NProductList from "@/components/molecules/CardList/NProductList";
-import CategoryList from "@/components/molecules/CardList/CategoryList";
+import PopularProductList from "@/components/molecules/cardList/PopularProductList";
+import NProductList from "@/components/molecules/cardList/NProductList";
+import CategoryList from "@/components/molecules/cardList/CategoryList";
 import Swipper from "@/components/atoms/swipper/Swipper";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";

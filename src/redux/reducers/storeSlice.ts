@@ -1,5 +1,23 @@
+type data = {
+  category_id: number;
+  category_name: string;
+  subcategories: {
+    subcategory_id: number;
+    subcategory_name: string;
+    products: {
+      id: number;
+      title: string;
+      image: string;
+      label: string;
+      actual_price: string;
+      selling_price: string;
+      discount_label: string;
+    }[];
+  }[];
+}[];
+
 type StoreState = {
-  data: any;
+  data: data;
   allProducts: {
     category_id: number;
     subcategory_id: number;

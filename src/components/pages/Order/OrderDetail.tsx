@@ -1,4 +1,4 @@
-import BackBtn from "../../atoms/Button/BackBtn";
+import BackBtn from "../../atoms/button/BackButton";
 // import SummaryCard from "../atoms/card/SummaryCard";
 import OrderDetailCard from "../../atoms/card/OrderDetailCard";
 import AddressCard from "../../atoms/card/AddressCard";

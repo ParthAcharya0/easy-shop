@@ -1,6 +1,6 @@
 import { RiDeleteBin5Line } from "react-icons/ri";
 
-const DustbinBtn = () => {
+const DeleteButton = () => {
   return (
     <button className="cursor-pointer rounded-full bg-[rgba(255,255,255,0.30)] px-2 py-2 bg-blend-screen backdrop-blur-sm">
       <RiDeleteBin5Line color="white"/>
@@ -8,4 +8,4 @@ const DustbinBtn = () => {
   );
 };
 
-export default DustbinBtn;
+export default DeleteButton;

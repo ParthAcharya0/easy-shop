@@ -1,4 +1,4 @@
-import ProductCard1 from "@/components/atoms/card/ProductCard1";
+import NormalCard from "@/components/atoms/card/NormalCard";
 
 type Product = {
   category_id: number;
@@ -18,7 +18,7 @@ const NProductList = ({ data }: { data: any }) => {
   return (
     <div className="custom-scroll no-scrollbar flex flex-nowrap gap-3 pt-2">
       {products.length >= 0 ? (
-        products.map((data: Product, id:number) => <ProductCard1 key={id} data={data} />)
+        products.map((data: Product, id:number) => <NormalCard key={id} data={data} />)
       ) : (
         <p>No Data Found</p>
       )}

@@ -12,13 +12,14 @@ export type Order = {
 
 const Tab = ({ ordersData }: { ordersData: Order[] }) => {
   const [tab, setTab] = useState(1);
-  const today = new Date().toDateString().split(" ");
-  const todayDate = `${today[2]} ${today[1]}`;
+  const today = new Date().toDateString();
+  // const todayDate = `${today[2]} ${today[1]}`;
   const currentOrder = ordersData.filter(
-    (order) => order.pickup_day === todayDate,
+    (order) => order.pickup_day === today,
   );
+  console.log(currentOrder, today)
   const pastOrder = ordersData.filter(
-    (order) => order.pickup_day !== todayDate,
+    (order) => order.pickup_day !== today,
   );
 
   return (

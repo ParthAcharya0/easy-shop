@@ -1,4 +1,4 @@
-import BackBtn from "@/components/atoms/Button/BackBtn";
+import BackBtn from "@/components/atoms/button/BackButton";
 import { useState } from "react";
 
 interface FilterOption {

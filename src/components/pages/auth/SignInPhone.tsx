@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import BackBtn from "@/components/atoms/Button/BackBtn";
-import Button from "@/components/atoms/Button/Button";
+import BackBtn from "@/components/atoms/button/BackButton";
+import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
-import InputWCountry from "@/components/molecules/Login/InputWCountry";
+import InputWCountry from "@/components/molecules/login/InputWCountry";
 import { useNavigate } from "react-router";
 import { AUTH_URL } from "@/app/url";
 import toast from "react-hot-toast";
 
 const SignInPhone = () => {
   const [number, setNumber] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
   const [error, setError] = useState("");
   const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,7 @@ const SignInPhone = () => {
       },
       body: JSON.stringify({
         phoneno: number.toString(),
-        country_code: "+91",
+        country_code: countryCode,
       }),
     };
 
@@ -86,6 +87,8 @@ const SignInPhone = () => {
         <div className="flex w-full max-w-[300px] flex-col gap-8">
           <InputWCountry
             label="Phone Number"
+            selectValue={countryCode}
+            onSelect={setCountryCode}
             value={number}
             onChange={setNumber}
             error={error}

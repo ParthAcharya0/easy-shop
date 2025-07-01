@@ -1,18 +1,22 @@
 import getOrders from "@/api/getOrder";
 import Footer from "@/components/molecules/layout/Footer";
-import Tab from "@/components/molecules/Tab/Tab";
+import Tab from "@/components/molecules/tab/Tab";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { AiOutlineShopping } from "react-icons/ai";
 import { Link } from "react-router";
-
 
 const Order = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    getOrders(accessToken, setLoading).then((res) => setOrders(res ?? []));
+    getOrders(accessToken, setLoading)
+      .then((res) => {
+        console.log("ress------->", res);
+        setOrders(res ?? []);
+      })
+      .catch((error) => console.log("error------>", error));
   }, []);
 
   return (
