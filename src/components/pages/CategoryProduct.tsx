@@ -28,7 +28,7 @@ const CategoryProduct = () => {
             <span className="loader w-2xl"></span>
           </p>
         ) : categoryData.length !== 0 ? (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 px-4 pt-2">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-4 px-4 pt-2">
             {categoryData.map((product: Product, id: number) => (
               <NormalCard data={product} key={id} />
             ))}

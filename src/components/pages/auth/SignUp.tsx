@@ -171,7 +171,7 @@ const SignUp = () => {
           subHeading="and enjoy life during time you"
         />
       </div>
-      <div className="[width >= 300px]:max-w-full mx-auto flex max-w-[85%] grow flex-col justify-around gap-3">
+      <div className="max-[427px]:max-w-full mx-auto flex max-w-[85%] grow flex-col justify-around gap-3">
         <InputLable
           value={firstName}
           handleChange={dispatch}

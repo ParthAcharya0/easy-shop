@@ -2,8 +2,8 @@ import { IMAGES } from "@/app/images/images";
 import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
 import { useEffect } from "react";
-import { FaApple, FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+// import { FaApple, FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 
 const Login = () => {
