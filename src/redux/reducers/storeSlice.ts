@@ -15,26 +15,27 @@ type data = {
     }[];
   }[];
 }[];
+export type ProductList = {
+  category_id: number;
+  subcategory_id: number;
+  id: number;
+  title: string;
+  image: string;
+  label: string;
+  actual_price: string;
+  selling_price: string;
+  discount_label: string;
+  isFav: boolean;
+}[];
 
 type StoreState = {
   data: data;
-  allProducts: {
-    category_id: number;
-    subcategory_id: number;
-    id: number;
-    title: string;
-    image: string;
-    label: string;
-    actual_price: string;
-    selling_price: string;
-    discount_label: string;
-    isFav: boolean;
-  }[];
+  allProducts: ProductList;
 };
 
 type Action = { type: string; payload: any };
 
-const initialState = {
+const initialState: StoreState = {
   data: [],
   allProducts: [],
 };

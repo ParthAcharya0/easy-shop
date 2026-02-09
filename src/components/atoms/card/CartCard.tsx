@@ -1,6 +1,6 @@
 import { removeCartItem, setQuantity } from "@/redux/actions/cartAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 export type Cart = {

@@ -1,21 +1,24 @@
-const InputWCountry = ({
-  label,
-  selectValue,
-  onSelect,
-  value,
-  onChange,
-  actionType,
-  payloadKey,
-  error,
-}: {
+interface InputWCountryPorps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   selectValue: string;
-  onSelect: React.Dispatch<React.SetStateAction<string>>;
+  onSelectCode: React.Dispatch<React.SetStateAction<string>>;
   value: string;
   onChange: any;
   actionType?: string;
   payloadKey?: string;
   error?: string | undefined;
+}
+
+const InputWCountry: React.FC<InputWCountryPorps> = ({
+  label,
+  selectValue,
+  onSelectCode,
+  value,
+  onChange,
+  actionType,
+  payloadKey,
+  error,
+  ...rest
 }) => {
   const [number, setNumber] = [value, onChange];
 
@@ -26,11 +29,11 @@ const InputWCountry = ({
         className={`${value && error ? (error ? "invalid" : "valid") : ""} mt-2.5 flex rounded-full border border-gray-300 font-medium`}
       >
         <select
-          className="cursor-pointer px-3"
+          className="cursor-pointer px-3 focus:outline-0"
           name="country-code"
           id="country-code"
           value={selectValue}
-          onChange={(e) => onSelect(e.target.value)}
+          onChange={(e) => onSelectCode(e.target.value)}
         >
           <option value="+91">+ 91</option>
           <option value="+81">+ 81</option>
@@ -43,9 +46,9 @@ const InputWCountry = ({
           value={number}
           inputMode="numeric"
           onChange={(e) => {
-            if (!(e.target.value.length <= 10)) return;
+            if ((e.target.value.length > 10)) return;
 
-            if (actionType === undefined) {
+            if (!actionType) {
               setNumber(e.target.value);
             } else {
               setNumber({
@@ -55,6 +58,7 @@ const InputWCountry = ({
               setNumber({ type: "reset", payload: payloadKey });
             }
           }}
+          {...rest}
         />
       </div>
       {value && error && (

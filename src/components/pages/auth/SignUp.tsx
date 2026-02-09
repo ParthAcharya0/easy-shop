@@ -1,12 +1,13 @@
-import { AUTH_URL } from "@/app/url";
 import BackBtn from "@/components/atoms/button/BackButton";
 import Button from "@/components/atoms/button/Button";
 import InputLable from "@/components/atoms/input/InputLable";
 import Header from "@/components/atoms/text/Header";
 import InputWCountry from "@/components/molecules/login/InputWCountry";
 import { useEffect, useReducer, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router";
+import { register } from "@/api/auth";
+import axios from "axios";
 
 type State = {
   firstName: string;
@@ -98,8 +99,13 @@ const SignUp = () => {
       newErrors.lastName = "Last name contains invalid characters";
     }
 
-    //E-mail Validation
-    if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Invalid email";
+    // Email Validation (RFC 5322 Official Standard)
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Invalid email";
+    }
 
     //Phone Validation
     if (!/^\d{10}$/.test(phoneNumber))
@@ -121,21 +127,14 @@ const SignUp = () => {
   // Submit with Send OTP
   async function handleSubmit() {
     if (!isValidation()) return;
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        phoneno: phoneNumber.toString(),
-        country_code: countryCode,
-      }),
-    };
 
     try {
       setLoading(true);
-      const res = await fetch(AUTH_URL.sendOtpR, options);
-      const otpData = await res.json();
+      const res = await register({
+        phoneno: phoneNumber.toString(),
+        country_code: countryCode,
+      });
+      const otpData = res;
 
       if (otpData.status !== "success") throw new Error(otpData.msg.toString());
 
@@ -153,7 +152,11 @@ const SignUp = () => {
       });
     } catch (error: any) {
       // console.log(error);
-      toast.error(error.message);
+       if(axios.isAxiosError(error)){
+        toast.error(error.response?.data?.msg);
+      }else{
+        toast.error(error.message ?? "Something went wrong");
+      }
       setLoading(false);
       if (error.message === "User with given phone number already exists👀")
         navigate("/signInPhone");
@@ -161,99 +164,105 @@ const SignUp = () => {
   }
 
   return (
-    <section className="custom-scroll no-scrollbar flex h-full flex-col gap-2 px-5 py-3">
-      <div className="-ml-1.5 h-[44px]">
-        <BackBtn size={44} to={"/login"} />
-      </div>
-      <div>
+    <section className="custom-scroll no-scrollbar flex min-h-dvh flex-col gap-2 px-5 py-3 h-full">
+      <div className="flex items-center justify-between"> 
+        <div className="-ml-1.5 h-11">
+          <BackBtn size={44} to={"/login"} />
+        </div>
         <Header
           heading="welcome to easyshop"
           subHeading="and enjoy life during time you"
         />
+        <div></div>
       </div>
-      <div className="max-[427px]:max-w-full mx-auto flex max-w-[85%] grow flex-col justify-around gap-3">
-        <InputLable
-          value={firstName}
-          handleChange={dispatch}
-          payloadKey={"firstName"}
-          label="first name"
-          placeholder="Enter first name"
-          error={error.firstName}
-        />
-        <InputLable
-          value={lastName}
-          handleChange={dispatch}
-          payloadKey="lastName"
-          label="last name"
-          placeholder="Enter last name"
-          error={error.lastName}
-        />
-        <InputLable
-          value={email}
-          handleChange={dispatch}
-          payloadKey="email"
-          label="email"
-          placeholder="Enter e-mail address"
-          type="email"
-          error={error.email}
-        />
-        <InputWCountry
-          label="Phone Number"
-          selectValue={countryCode}
-          onSelect={setCountryCode}
-          value={phoneNumber}
-          onChange={dispatch}
-          payloadKey="phoneNumber"
-          actionType="setField"
-          error={error.phoneNumber}
-        />
-        <InputLable
-          value={password}
-          handleChange={dispatch}
-          payloadKey="password"
-          label="password"
-          placeholder="Enter Password"
-          type="password"
-          error={error.password}
-        />
-        <div>
-          <label
-            className="flex items-center gap-3 accent-pink-500"
-            htmlFor="terms"
-          >
-            <input
-              className="ml-2 scale-150"
-              type="checkbox"
-              id="terms"
-              value={checked.toString()}
-              checked={checked}
-              onClick={() =>
-                dispatch({
-                  type: "setField",
-                  payload: { key: "checked", value: !state.checked },
-                })
-              }
-            />
-            <span className="text-gray-400">
-              By creating this account, you have to agree with
-              <span className="font-medium text-black">Term of Services.</span>
-            </span>
-          </label>
+      <div className="mx-auto max-w-[85%] grow max-[427px]:max-w-full justify-between flex flex-col">
+        <div></div>
+        <div className="grid md:grid-cols-2 flex-col justify-around gap-5">
+          <InputLable
+            value={firstName}
+            handleChange={dispatch}
+            payloadKey={"firstName"}
+            label="first name"
+            placeholder="Enter first name"
+            error={error.firstName}
+          />
+          <InputLable
+            value={lastName}
+            handleChange={dispatch}
+            payloadKey="lastName"
+            label="last name"
+            placeholder="Enter last name"
+            error={error.lastName}
+          />
+          <InputLable
+            value={email}
+            handleChange={dispatch}
+            payloadKey="email"
+            label="email"
+            placeholder="Enter e-mail address"
+            type="email"
+            error={error.email}
+          />
+          <InputWCountry
+            label="Phone Number"
+            selectValue={countryCode}
+            onSelectCode={setCountryCode}
+            value={phoneNumber}
+            onChange={dispatch}
+            payloadKey="phoneNumber"
+            actionType="setField"
+            error={error.phoneNumber}
+          />
+          <InputLable
+            value={password}
+            handleChange={dispatch}
+            payloadKey="password"
+            label="password"
+            placeholder="Enter Password"
+            type="password"
+            error={error.password}
+          />
         </div>
-        {loading ? (
-          <p className="text-center font-medium">
-            <span className="loader w-2xl"></span>
-          </p>
-        ) : (
-          <Button state={btnState} eventHandler={handleSubmit}>
-            Continue
-          </Button>
-        )}
-        <div className="self-center text-gray-400">
-          Already have an account ?
-          <Link to="/signInPhone">
-            <span className="ml-2 font-semibold text-black">Login</span>
-          </Link>
+        <div className="space-y-2">
+          <div>
+            <label
+              className="flex items-center gap-3 accent-pink-500"
+              htmlFor="terms"
+            >
+              <input
+                className="ml-2 scale-150"
+                type="checkbox"
+                id="terms"
+                value={checked.toString()}
+                checked={checked}
+                onClick={() =>
+                  dispatch({
+                    type: "setField",
+                    payload: { key: "checked", value: !state.checked },
+                  })
+                }
+              />
+              <span className="text-gray-400">
+                By creating this account, you have to agree with
+                <span className="font-medium text-black">Term of Services.</span>
+              </span>
+            </label>
+          </div>
+          {loading ? (
+            <p className="text-center font-medium">
+              <span className="loader w-2xl"></span>
+            </p>
+          ) : (
+            <Button state={btnState} eventHandler={handleSubmit}>
+              Continue
+            </Button>
+          )}
+          <div className="self-center text-gray-400">
+            Already have an account ?
+            <Link to="/signInPhone">
+              <span className="ml-2 font-semibold text-black">Login</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

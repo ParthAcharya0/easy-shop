@@ -3,7 +3,7 @@
 @import "swiper/css/pagination";
 
 @theme {
-  --color-primary: lab(83.58% 24.15 3.32);
+  --color-primary: #ffc0cb;
 }
 
 @layer components {
@@ -35,9 +35,7 @@
   --sb-size: 14px;
 }
 
-#root {
-  @apply relative mx-auto h-[100dvh] max-w-[500px] rounded-2xl border-2 border-black bg-white;
-}
+
 
 /* custom scroll  */
 .custom-scroll {

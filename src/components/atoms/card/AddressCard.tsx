@@ -2,9 +2,11 @@ import { SelectedAddress } from "@/redux/reducers/addressSlice";
 import { GiCheckMark } from "react-icons/gi";
 import DropDown from "../dropDown/DropDown";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import deleteAddress from "@/api/deleteAddress";
 import { useNavigate } from "react-router";
 import { resetCurrentAddress } from "@/redux/actions/addressAction";
+import { deleteAddress } from "@/api/address";
+import { toast } from "react-toastify";
+import { fetchAddressList } from "@/components/pages/address/AllAddress";
 
 const AddressCard = ({
   data,
@@ -15,7 +17,6 @@ const AddressCard = ({
   active?: boolean;
   isHaveOptions?: boolean;
 }) => {
-  const aceessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatcher = useAppDispatch();
   const defaultAdd: Partial<SelectedAddress> = useAppSelector(
     (state) => state.address.selectedAddress,
@@ -26,7 +27,14 @@ const AddressCard = ({
     if (defaultAdd.address_id === data?.address_id) {
       dispatcher(resetCurrentAddress());
     }
-    deleteAddress(aceessToken, data?.address_id ?? 0);
+    deleteAddress(data?.address_id ?? 0)
+      .then(() => {
+        toast.success("Successfully Address Deleted");
+        fetchAddressList(dispatcher);
+      })
+      .catch(() => {
+        toast.error("Something Went Wrong, Please try later");
+      });
   }
 
   function editAddr() {

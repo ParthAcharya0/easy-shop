@@ -2,7 +2,6 @@ import Button from "@/components/atoms/button/Button";
 import BackBtn from "../../atoms/button/BackButton";
 import HeaderLink from "../../atoms/text/HeaderLink";
 import { useEffect, useState } from "react";
-import getAddress from "@/api/getAddress";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   setAddressList,
@@ -10,11 +9,25 @@ import {
 } from "@/redux/actions/addressAction";
 import AddressCard from "@/components/atoms/card/AddressCard";
 import { SelectedAddress } from "@/redux/reducers/addressSlice";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
+import { getAddressList } from "@/api/address";
 import { useNavigate } from "react-router";
 
+export const fetchAddressList = (
+  dispatch: any,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  setLoading?.(true);
+  getAddressList()
+    .then((res) => {
+      dispatch(setAddressList(res.data.addressDetails));
+      setLoading?.(false);
+    })
+    .catch(() => setLoading?.(false));
+};
+
+
 const AllAddress = () => {
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
   const allAddress = useAppSelector((state) => state.address.addressLists);
   const currentSelected = useAppSelector(
     (state) => state.address.selectedAddress,
@@ -23,16 +36,20 @@ const AllAddress = () => {
     useState<Partial<SelectedAddress>>(currentSelected);
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
+
+  // function fetchAddressList() {
+  //   setLoading(true);
+  //   getAddressList()
+  //     .then((res) => {
+  //       dispatch(setAddressList(res.data.addressDetails));
+  //       setLoading(false);
+  //     })
+  //     .catch(() => setLoading(false));
+  // }
 
   useEffect(() => {
-    setLoading(true);
-    getAddress(accessToken)
-      .then((res) => {
-        dispatch(setAddressList(res));
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    fetchAddressList(dispatch, setLoading);
   }, []);
 
   function handleSubmit() {
@@ -42,7 +59,8 @@ const AllAddress = () => {
     }
     // @ts-ignore
     dispatch(setCurrentAddress(selected));
-    navigator("/cart");
+    console.log("wokingggg");
+    navigate(-1);
   }
 
   return (

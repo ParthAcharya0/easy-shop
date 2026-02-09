@@ -2,28 +2,41 @@ import SearchInput from "@/components/atoms/input/SearchInput";
 import HeaderLink from "@/components/atoms/text/HeaderLink";
 import Header from "@/components/molecules/layout/Header";
 import Footer from "@/components/molecules/layout/Footer";
-import PopularProductList from "@/components/molecules/cardList/PopularProductList";
 import NProductList from "@/components/molecules/cardList/NProductList";
 import CategoryList from "@/components/molecules/cardList/CategoryList";
 import Swipper from "@/components/atoms/swipper/Swipper";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import getUserInfo from "@/api/getUser";
-import getStore from "@/api/getStore";
+import { getUserDetails } from "@/api/auth";
+import { getStore } from "@/api/store";
+import { setProducts, setStoreData } from "@/redux/actions/storeAction";
 
 const Home = () => {
   const storeData = useAppSelector((state) => state.storeData);
-  const auth = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const store = storeData.data;
   const allProducts = storeData.allProducts;
-  const access = auth.accessToken;
+
+  async function fetchStoreData() {
+    setLoading(true);
+    try {
+      const response = await getStore();
+      dispatch(setStoreData(response.data));
+      dispatch(setProducts(response.data));
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    if (access.length >= 2) {
-      Object.keys(auth.userInfo).length === 0 && getUserInfo(access);
-      store.length === 0 && getStore(access, setLoading);
-    }
+    (async () => {
+      try {
+        await getUserDetails();
+      } catch (_) {}
+    })();
+    !store.length && fetchStoreData();
   }, []);
 
   return (
@@ -36,7 +49,7 @@ const Home = () => {
 
         <Swipper />
 
-        <section className="my-5 px-3.5">
+        {/* <section className="my-5 px-3.5">
           <HeaderLink
             heading="Popular Products"
             subHeading="View all"
@@ -53,9 +66,9 @@ const Home = () => {
           ) : (
             <PopularProductList data={allProducts} variant="limited" />
           )}
-        </section>
+        </section> */}
 
-        <section className="px-3.5">
+        <section className="px-3.5 py-5">
           <HeaderLink
             heading="Shop by Category"
             subHeading="View all"

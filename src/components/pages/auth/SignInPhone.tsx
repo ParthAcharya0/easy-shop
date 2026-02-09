@@ -4,8 +4,9 @@ import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
 import InputWCountry from "@/components/molecules/login/InputWCountry";
 import { useNavigate } from "react-router";
-import { AUTH_URL } from "@/app/url";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
+import { loginWithNumber } from "@/api/auth";
+import axios from "axios";
 
 const SignInPhone = () => {
   const [number, setNumber] = useState("");
@@ -22,18 +23,7 @@ const SignInPhone = () => {
     }
     setError("");
     setDisable(false);
-
-    // setError("Invalid phone number");
   }, [number]);
-
-  // function handleSubmit() {
-  //   if (number.length === 10) {
-  //     navigate("/otpVerify", { state: number });
-  //     return;
-  //   }
-
-  //   alert("Enter Vaild Number");
-  // }
 
   async function handleSubmit() {
     if (number.length < 10) {
@@ -42,21 +32,13 @@ const SignInPhone = () => {
       return;
     }
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        phoneno: number.toString(),
-        country_code: countryCode,
-      }),
-    };
-
     try {
       setLoading(true);
-      const res = await fetch(AUTH_URL.sendOtpL, options);
-      const otpData = await res.json();
+      const res = await loginWithNumber({
+        phoneno: number.toString(),
+        country_code: countryCode,
+      });
+      const otpData = res;
 
       if (otpData.status !== "success") throw new Error(otpData.msg.toString());
       toast.success(otpData.msg);
@@ -69,36 +51,47 @@ const SignInPhone = () => {
         },
       });
     } catch (error: any) {
-      // console.log(error);
-      toast.error(error.message);
+      console.log(error)
+      if(axios.isAxiosError(error)){
+        toast.error(error.response?.data?.msg);
+      }else{
+        toast.error(error.message ?? "Something went wrong");
+      }
       setLoading(false);
-      // navigate(-1);
     }
   }
 
   return (
-    <section className="custom-scroll no-scrollbar h-full px-5 py-7">
-      <BackBtn size={38} />
-      <Header
-        heading="Signin with Phone"
-        subHeading="welcome back, you have been missed"
-      />
-      <div className="flex min-h-[50%] flex-col items-center justify-center">
-        <div className="flex w-full max-w-[300px] flex-col gap-8">
+    <section className="custom-scroll flex min-h-dvh flex-col gap-4 px-5 py-7">
+      <div className="flex items-start gap-4">
+        <BackBtn size={38} />
+        <div>
+          <Header
+            heading="Signin with Phone"
+            subHeading="welcome back, you have been missed"
+          />
+        </div>
+      </div>
+      <div className="flex min-h-[50%] grow flex-col items-center justify-center">
+        <div className="flex w-full max-w-75 flex-col gap-8">
           <InputWCountry
             label="Phone Number"
             selectValue={countryCode}
-            onSelect={setCountryCode}
+            onSelectCode={setCountryCode}
             value={number}
             onChange={setNumber}
             error={error}
+            onKeyUp={(e) => e.key === "Enter" && handleSubmit()}
           />
           {loading ? (
             <p className="text-center font-medium">
               <span className="loader w-2xl"></span>
             </p>
           ) : (
-            <Button eventHandler={handleSubmit} state={disable}>
+            <Button
+              eventHandler={handleSubmit}
+              state={number.length <= 0 || disable}
+            >
               Send OTP
             </Button>
           )}

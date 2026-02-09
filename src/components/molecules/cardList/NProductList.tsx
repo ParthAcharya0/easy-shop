@@ -1,4 +1,5 @@
 import NormalCard from "@/components/atoms/card/NormalCard";
+import useHorizontalScroll from "@/hooks/useHorizontalScroll";
 
 type Product = {
   category_id: number;
@@ -13,12 +14,19 @@ type Product = {
   isFav: boolean;
 };
 
-const NProductList = ({ data }: { data: any }) => {
+const NProductList = ({ data }: { data: Product[] }) => {
+  const productScrollRef = useHorizontalScroll<HTMLDivElement>();
+
   const products = data;
   return (
-    <div className="custom-scroll no-scrollbar flex flex-nowrap gap-3 pt-2">
+    <div
+      className="custom-scroll no-scrollbar flex flex-nowrap gap-3 pt-2"
+      ref={productScrollRef}
+    >
       {products.length >= 0 ? (
-        products.map((data: Product, id:number) => <NormalCard key={id} data={data} />)
+        products.map((data: Product, id: number) => (
+          <NormalCard key={id} data={data} />
+        ))
       ) : (
         <p>No Data Found</p>
       )}

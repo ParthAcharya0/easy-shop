@@ -2,10 +2,10 @@ export type SelectedAddress = {
   address_id: number;
   street: string;
   floor: string;
-  business_name: null;
+  business_name: null | string;
   zip_code: string;
-  latitude: null;
-  longitude: null;
+  latitude: null | number;
+  longitude: null | number;
 };
 
 type AddressState = {

@@ -4,7 +4,7 @@ import { AiOutlineShopping } from "react-icons/ai";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { addCartItem } from "@/redux/actions/cartAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 export type Product = {
   category_id: number;
@@ -54,7 +54,10 @@ const ProductCard = ({ details }: { details: Product }) => {
         />
       </div>
       <div className="rounded-md bg-[rgba(50,48,48,0.44)] px-3 py-2.5 text-base backdrop-blur-xs">
-        <h4 className="truncate pb-1.5 font-medium capitalize">
+        <h4
+          className="truncate pb-1.5 font-medium capitalize"
+          title={details.title}
+        >
           {details.title}
         </h4>
         <div className="flex items-center justify-between gap-2 text-xs font-light">

@@ -1,5 +1,6 @@
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import refreshAccess from "./refreshAccess";
+import axios from "axios";
 
 interface Address {
   street: string;
@@ -25,7 +26,7 @@ const addAddress = async (accessToken: string, address: Address) => {
 
   try {
     const res = await fetch(
-      "https://instacart-xqwi.onrender.com/add-address",
+      "http://localhost:8080/add-address",
       options,
     );
     if (!res.ok) throw new Error(res.status.toString());
@@ -43,7 +44,11 @@ const addAddress = async (accessToken: string, address: Address) => {
       console.log(newToken);
       newToken && addAddress(newToken, address);
     }
-    toast.error(error.message);
+     if(axios.isAxiosError(error)){
+        toast.error(error.response?.data?.msg);
+      }else{
+        toast.error(error.message ?? "Something went wrong");
+      }
     return false;
   }
 };

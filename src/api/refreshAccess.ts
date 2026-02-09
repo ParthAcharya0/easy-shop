@@ -1,24 +1,22 @@
-import { AUTH_URL } from "@/app/url";
+import { endpoints } from "@/constant/apiConstant";
 import { setAccessToken } from "@/redux/actions/authAction";
 import store from "@/redux/store";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
+import { privateInstance } from "./axios";
+import type { AxiosResponse } from "axios";
+import type { ApiResponse } from "./auth";
 
 async function refreshAccess(refreshToken: string) {
   try {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({ refreshToken: refreshToken }),
-    };
-    const res = await fetch(AUTH_URL.refersh_access, options);
-    if (!res.ok) throw new Error(res.status.toString());
+    const res: AxiosResponse<
+      ApiResponse<{
+        accessToken: string;
+      }>
+    > = await privateInstance.post(endpoints.REFRESH_TOKEN, {
+      refreshToken: refreshToken,
+    });
 
-    const data = await res.json();
-    if (data.status !== "success") throw new Error(data.statusCode.toString());
-
-    const newAccess = data.data.accessToken;
+    const newAccess = res.data.data.accessToken;
 
     localStorage.setItem(
       "AUTH_TOKEN",
@@ -36,8 +34,8 @@ async function refreshAccess(refreshToken: string) {
       toast.error("Please Login Again");
       return null;
     }
-    console.log(error);
     toast.error("try later");
+    throw new Error(error);
   }
 }
 

@@ -1,28 +1,30 @@
-import getOrders from "@/api/getOrder";
+import { getOrders } from "@/api/order";
+import BackBtn from "@/components/atoms/button/BackButton";
 import Footer from "@/components/molecules/layout/Footer";
 import Tab from "@/components/molecules/tab/Tab";
-import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { AiOutlineShopping } from "react-icons/ai";
 import { Link } from "react-router";
 
 const Order = () => {
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    getOrders(accessToken, setLoading)
+    setLoading(true);
+    getOrders()
       .then((res) => {
-        console.log("ress------->", res);
-        setOrders(res ?? []);
+        setOrders(res.data.current_orders?.pickup_orders?.orders ?? []);
       })
-      .catch((error) => console.log("error------>", error));
+      .catch((error) => console.log("error------>", error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-dvh flex-col">
       <header className="flex items-center justify-between px-2 py-4">
-        <div></div>
+        <div>
+          <BackBtn size={40} />
+        </div>
         <h2 className="heading2 ml-8">Orders</h2>
         <Link to="/cart">
           <AiOutlineShopping size={32} />

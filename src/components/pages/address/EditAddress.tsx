@@ -1,4 +1,4 @@
-import editAddress from "@/api/editAddress";
+import { editAddress } from "@/api/address";
 import BackBtn from "@/components/atoms/button/BackButton";
 import Button from "@/components/atoms/button/Button";
 import InputLable from "@/components/atoms/input/InputLable";
@@ -29,7 +29,6 @@ const AddressTypeList = [
 ];
 
 const EditAddress = () => {
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
   const addressList = useAppSelector((state) => state.address.addressLists);
   const location = useLocation();
   const navData = location.state;
@@ -40,13 +39,6 @@ const EditAddress = () => {
     currentAdd?.street
       ? currentAdd?.street.split("%").map((ele) => ele.trim())
       : [];
-
-  // console.log("location----->", location);
-  // console.log("id-from-prev----->", navData);
-  // console.log(
-  //   "address----->",
-  //   currentAdd?.street.split("%").map((ele) => ele.trim()),
-  // );
   const [addresstype, setAddresstype] = useState<string | null>(null);
   const [address, setAddress] = useState<string>(prevAddress ?? "");
   const [country, setCountry] = useState<string | null>(null);
@@ -145,15 +137,16 @@ const EditAddress = () => {
     return Object.keys(newErrors).length !== 0;
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!validate()) {
       setbtn(true);
       editAddress(
-        accessToken,
         {
           street: `${address}%${city}%${currentState}%${country}%${pincode}`,
           floor: addresstype ?? "",
           zip_code: pincode,
+          latitude: null,
+          longitude: null,
         },
         navData,
       )

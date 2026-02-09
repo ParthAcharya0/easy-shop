@@ -5,8 +5,8 @@ import AddressCard from "../../atoms/card/AddressCard";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import SummaryCard from "@/components/atoms/card/SummaryCard";
-import getOrderDetails from "@/api/getOrderDetails";
 import { useAppSelector } from "@/redux/hooks";
+import { getOrderDetails } from "@/api/order";
 
 type OrderDetails = {
   order_id: number;
@@ -72,7 +72,6 @@ function calculateTotal(
 }
 
 const OrderDetail = () => {
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState<OrderDetails | null>(null);
   const parameter = useParams();
@@ -80,9 +79,12 @@ const OrderDetail = () => {
   const total = orderData && calculateTotal(5, 2.5, orderData?.items);
 
   useEffect(() => {
-    getOrderDetails(accessToken, orderID?.toString(), setLoading).then((res) =>
-      setOrderData(res),
-    );
+    setLoading(true)
+    getOrderDetails(orderID?.toString()).then((res) =>
+      setOrderData(res.data.orderData),
+    ).finally(()=>{
+      setLoading(false)
+    });
   }, []);
   return (
     <div className="flex h-full flex-col rounded-lg">

@@ -5,7 +5,7 @@ import { Product } from "./ProductCard";
 import { AiOutlineShopping } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addCartItem } from "@/redux/actions/cartAction";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const NormalCard = ({
   variant = false,
@@ -33,12 +33,12 @@ const NormalCard = ({
     toast.success("successfully added to cart");
   }
   return (
-    <div className="flex w-full min-w-44 flex-col justify-between rounded-md text-black">
+    <div className="flex w-full min-w-48 flex-col justify-between rounded-md text-black select-none">
       <div
         className={`img-holder relative aspect-square ${variant ? "h-48" : "h-40"} w-full overflow-hidden rounded-lg`}
       >
         <img
-          className="aspect-square h-full w-full object-contain object-center"
+          className="aspect-square h-full w-full object-contain object-center "
           src={data.image}
           alt=""
         />
@@ -60,7 +60,7 @@ const NormalCard = ({
         )}
       </div>
       <div className="rounded-md bg-[rgba(255,255,255,0.22)] px-3 py-2.5 text-base backdrop-blur-sm">
-        <h4 className="line-clamp-2 py-0 font-medium capitalize max-w-[86%]">
+        <h4 className="line-clamp-2 py-0 font-medium capitalize max-w-[86%]"title={data.title}>
           {data.title}
         </h4>
         <div className="flex flex-col gap-0.5">

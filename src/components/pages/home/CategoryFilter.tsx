@@ -1,4 +1,4 @@
-import { IMAGES } from "@/app/images/images";
+import { IMAGES } from "@/constant/images/images";
 import BackBtn from "@/components/atoms/button/BackButton";
 import { useAppSelector } from "@/redux/hooks";
 import { useState } from "react";

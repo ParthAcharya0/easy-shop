@@ -1,4 +1,3 @@
-import getStore from "@/api/getStore";
 import BackBtn from "@/components/atoms/button/BackButton";
 import CategoryCard from "@/components/atoms/card/CategoryCard";
 import { Product } from "@/components/atoms/card/ProductCard";
@@ -6,6 +5,7 @@ import NormalCard from "@/components/atoms/card/NormalCard";
 import SearchInput from "@/components/atoms/input/SearchInput";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
+import { getStore } from "@/api/store";
 
 const colorTheme = [
   "bg-purple-300 text-purple-900 border-purple-900",
@@ -18,7 +18,6 @@ const colorTheme = [
 
 const AllPopularProduct = () => {
   const store = useAppSelector((state) => state.storeData);
-  const access = useAppSelector((state) => state.auth.accessToken);
   const [searchData, setSearchData] = useState<any[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState(0);
@@ -32,7 +31,7 @@ const AllPopularProduct = () => {
     ...storeData,
   ];
   const allProducts = store.allProducts;
-  const showProducts = 6;
+  const showProducts = 10;
   const categoryData = allProducts.filter(
     (product) => product.category_id === category,
   );
@@ -54,7 +53,7 @@ const AllPopularProduct = () => {
       : Math.ceil(categoryData.length / showProducts);
 
   useEffect(() => {
-    storeData.length === 0 && getStore(access);
+    storeData.length === 0 && getStore();
   }, []);
   return (
     <div className="custom-scroll no-scrollbar h-full">
@@ -88,7 +87,7 @@ const AllPopularProduct = () => {
                 >
                   <CategoryCard
                     data={categorys}
-                    className={`${colorTheme[index % colorTheme.length]} ${category === categorys.category_id ? "border-1" : "border-0"} min-w-[210px] border px-4`}
+                    className={`${colorTheme[index % colorTheme.length]} ${category === categorys.category_id ? "border" : "border-0"} min-w-52.5 border px-4`}
                   />
                 </button>
               ))
