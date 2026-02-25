@@ -27,18 +27,15 @@ const OtpVerify = () => {
 
   const location = useLocation();
   const prevData = location.state;
-  console.log(prevData)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   // checked Coming from Where
   if (prevData?.from === "login") {
-    console.log("from login");
     loginNumber.current = prevData?.phoneNumber;
     otpID.current = prevData?.otpID ?? "";
     handleSubmit = handleLoginSubmit;
   } else if (prevData?.from === "register") {
-    console.log("from register");
     firstName.current = prevData?.firstName ?? "";
     lastName.current = prevData?.lastName ?? "";
     email.current = prevData?.email ?? "";

@@ -3,9 +3,10 @@ import CategoryCard from "@/components/atoms/card/CategoryCard";
 import { Product } from "@/components/atoms/card/ProductCard";
 import NormalCard from "@/components/atoms/card/NormalCard";
 import SearchInput from "@/components/atoms/input/SearchInput";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { getStore } from "@/api/store";
+import { setProducts, setStoreData } from "@/redux/actions/storeAction";
 
 const colorTheme = [
   "bg-purple-300 text-purple-900 border-purple-900",
@@ -18,6 +19,7 @@ const colorTheme = [
 
 const AllPopularProduct = () => {
   const store = useAppSelector((state) => state.storeData);
+  const dispatch = useAppDispatch();
   const [searchData, setSearchData] = useState<any[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState(0);
@@ -53,7 +55,11 @@ const AllPopularProduct = () => {
       : Math.ceil(categoryData.length / showProducts);
 
   useEffect(() => {
-    storeData.length === 0 && getStore();
+    storeData.length === 0 &&
+      getStore().then((response) => {
+        dispatch(setStoreData(response.data));
+        dispatch(setProducts(response.data));
+      });
   }, []);
   return (
     <div className="custom-scroll no-scrollbar h-full">

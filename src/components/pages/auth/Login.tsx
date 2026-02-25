@@ -1,21 +1,12 @@
 import { IMAGES } from "@/constant/images/images";
 import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
-import { useEffect } from "react";
-import { FaApple, FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 const Login = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    // if (localStorage.getItem("AUTH_TOKEN")) {
-    //   navigate("/");
-    // }
-  }, []);
 
   return (
-    <section className="custom-scroll container mx-auto flex h-screen flex-col md:flex-row-reverse md:gap-5 md:px-5 relative z-0">
+    <section className="custom-scroll container mx-auto flex h-dvh flex-col md:flex-row-reverse md:gap-5 md:px-5 relative z-0">
       <div className="flex absolute md:relative -z-1 inset-0 grow basis-full items-center md:h-full">
         <img
           loading="lazy"
@@ -25,7 +16,7 @@ const Login = () => {
         />
       </div>
       <div className="h-full grow basis-full flex flex-col justify-end  md:justify-center">
-        <div className="bg-white p-5 rounded-t-3xl">
+        <div className="bg-white pb-10 p-5 rounded-t-3xl">
           <img className="hidden w-20 py-4 md:block" src="./logo.png" alt="" />
           <div className="flex w-full flex-1 flex-col gap-6">
             <Header

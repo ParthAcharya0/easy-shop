@@ -5,7 +5,6 @@ import AddressCard from "../../atoms/card/AddressCard";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import SummaryCard from "@/components/atoms/card/SummaryCard";
-import { useAppSelector } from "@/redux/hooks";
 import { getOrderDetails } from "@/api/order";
 
 type OrderDetails = {
@@ -87,15 +86,15 @@ const OrderDetail = () => {
     });
   }, []);
   return (
-    <div className="flex h-full flex-col rounded-lg">
+    <div className="flex min-h-screen flex-col rounded-lg">
       <div className="flex shrink-0 items-center justify-between px-5 py-3">
         <BackBtn size={34} />
         <h2 className="heading2 -ml-6">Order details</h2>
         <div></div>
       </div>
-      <div className="custom-scroll no-scrollbar grow px-5">
+      <div className="custom-scroll no-scrollbar grow px-5 flex flex-col">
         {loading ? (
-          <p className="flex h-full items-center justify-center text-center font-medium">
+          <p className="flex h-full grow items-center justify-center font-medium">
             <span className="loader -mt-10 w-2xl"></span>
           </p>
         ) : orderData === null ? (
@@ -105,19 +104,19 @@ const OrderDetail = () => {
         ) : (
           <div className="flex h-full flex-col">
             <div className="flex flex-col gap-2">
-              {orderData.items?.map((order) => (
+              {orderData?.items?.map((order) => (
                 <OrderDetailCard data={order} />
               ))}
             </div>
             <div className="flex flex-col gap-2 border-b border-gray-300 py-3">
               <h3 className="tetx-sm capitalize">Order ID</h3>
-              <span className="heading2 uppercase">{orderData.order_id}</span>
+              <span className="heading2 uppercase">{orderData?.order_id}</span>
             </div>
             <div className="border-b border-gray-300 py-1">
               <AddressCard
                 data={{
-                  floor: orderData.address.type,
-                  street: `${orderData.address.address}%${orderData.address.city}%${orderData.address.state}%${orderData.address.country}%${orderData.address.zip_code}`,
+                  floor: orderData?.address.type,
+                  street: `${orderData?.address.address}%${orderData?.address.city}%${orderData?.address.state}%${orderData?.address.country}%${orderData?.address.zip_code}`,
                 }}
               />
             </div>
@@ -138,37 +137,3 @@ const OrderDetail = () => {
 };
 
 export default OrderDetail;
-
-// const oldOrderDetail = () => {
-
-//   return (
-//     <div className="flex h-full flex-col rounded-lg">
-//       <div className="flex shrink-0 items-center justify-between px-5 py-3">
-//         <BackBtn size={34} />
-//         <h2 className="heading2">Order details</h2>
-//         <div></div>
-//       </div>
-//       <div className="custom-scroll no-scrollbar grow px-5">
-//         <div className="flex h-full flex-col">
-//           <div className="flex flex-col gap-2">
-//             <OrderDetailCard />
-//             <OrderDetailCard />
-//           </div>
-//           <div className="flex flex-col gap-2 border-b border-gray-300 py-3">
-//             <h3 className="tetx-sm capitalize">Order ID</h3>
-//             <span className="heading2 uppercase">Aprpf8564842899j1g5r</span>
-//           </div>
-//           <div className="border-b border-gray-300 py-3">
-//             <AddressCard />
-//           </div>
-
-//           <div className="flex flex-col gap-2 py-3">
-//             <h3 className="tetx-sm pb-3 capitalize">payment types</h3>
-//             <span className="heading2">Cash On Delivery</span>
-//           </div>
-//           <div className="mt-auto">{/* <SummaryCard /> */}</div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };

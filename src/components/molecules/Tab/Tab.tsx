@@ -14,13 +14,9 @@ const Tab = ({ ordersData }: { ordersData: Order[] }) => {
   const [tab, setTab] = useState(1);
   const today = new Date().toDateString();
   // const todayDate = `${today[2]} ${today[1]}`;
-  const currentOrder = ordersData.filter(
-    (order) => order.pickup_day === today,
-  );
-  console.log(currentOrder, today)
-  const pastOrder = ordersData.filter(
-    (order) => order.pickup_day !== today,
-  );
+  const currentOrder = ordersData.filter((order) => order.pickup_day === today);
+  // console.log(currentOrder, today);
+  const pastOrder = ordersData.filter((order) => order.pickup_day !== today);
 
   return (
     <>
@@ -43,27 +39,24 @@ const Tab = ({ ordersData }: { ordersData: Order[] }) => {
       </section>
       <section className="custom-scroll no-scrollbar grow px-4 pb-5">
         {tab === 1 ? (
-          <div className="flex flex-col gap-2.5">
-         
-              {currentOrder.length === 0 ? (
-                <div className="flex h-50 items-center justify-center text-lg font-medium">
-                  <p>No orders</p>
-                </div>
-              ) : (
-                currentOrder.map((order, i) => (
-                  <OrderCard key={i} data={order} />
-                ))
-              )}
+          <div className="flex flex-col gap-2.5 pb-20">
+            {currentOrder.length === 0 ? (
+              <div className="flex h-50 items-center justify-center text-lg font-medium">
+                <p>No orders</p>
+              </div>
+            ) : (
+              currentOrder.map((order, i) => <OrderCard key={i} data={order} />)
+            )}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-lg font-medium">
+          <div className="flex flex-col gap-2.5 pb-20">
             {pastOrder.length === 0 ? (
-                <div className="flex h-full items-center justify-center text-lg font-medium">
-                  <p>No orders</p>
-                </div>
-              ) : (
-                pastOrder.map((order, i) => <OrderCard key={i} data={order} />)
-              )}
+              <div className="flex h-full items-center justify-center text-lg font-medium">
+                <p>No orders</p>
+              </div>
+            ) : (
+              pastOrder.map((order, i) => <OrderCard key={i} data={order} />)
+            )}
           </div>
         )}
       </section>

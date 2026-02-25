@@ -8,7 +8,7 @@
 
 @layer components {
   .heading1 {
-    @apply text-3xl font-semibold text-black;
+    @apply text-xl md:text-3xl font-semibold text-black;
   }
 
   .heading2 {

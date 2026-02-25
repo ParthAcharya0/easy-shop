@@ -55,7 +55,6 @@ const CartCard = ({ data }: { data: Cart }) => {
             if (data.quantity <= 1) {
               toast.error(
                 "At least 1 quantity is required. To delete the category, please click the delete button",
-                { id: "quantityNotify" },
               );
               // removeItem()
               return;

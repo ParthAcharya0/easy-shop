@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <div className="flex h-full w-full flex-col text-xl">
       <Header />
-      <main className="custom-scroll no-scrollbar no-scrollbar grow">
+      <main className="custom-scroll no-scrollbar no-scrollbar grow pb-20">
         <section className="px-3.5 py-5">
           <SearchInput />
         </section>

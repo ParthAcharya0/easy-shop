@@ -59,7 +59,6 @@ const AllAddress = () => {
     }
     // @ts-ignore
     dispatch(setCurrentAddress(selected));
-    console.log("wokingggg");
     navigate(-1);
   }
 

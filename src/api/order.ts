@@ -7,6 +7,56 @@ export interface OrderItem {
   quantity: number;
 }
 
+export interface OrderDetail {
+  order_id: number
+  order_status: string
+  store_id: number
+  store_name: string
+  store_logo: string
+  country_code: string
+  mobile_number: number
+  created_at: string
+  updated_at: string
+  address: Address
+  payment_details: PaymentDetails
+  items: Item[]
+  pickup_day: string
+  pickup_slot: string
+}
+
+export interface Address {
+  type: string
+  address: string
+  city: string
+  state: string
+  country: string
+  zip_code: string
+  latitude: any
+  longitude: any
+}
+
+export interface PaymentDetails {
+  invoice: string
+  status: string
+  type: string
+  actual_subtotal: string
+  final_subtotal: string
+  service_fee: string
+  bag_fee: string
+  pickup_fee: string
+  subtotal: string
+  discount_applied: string
+}
+
+export interface Item {
+  product_id: number
+  quantity: number
+  price: string
+  title: string
+  image: string
+}
+
+
 export interface PlaceOrderPayload {
   store_id: number;
   cart_items: OrderItem[];
@@ -38,7 +88,7 @@ export type OrderListResponse = ApiResponse<{
 }>;
 
 export type OrderDetailsResponse = ApiResponse<{
-  orderData: any;
+  orderData: OrderDetail;
 }>;
 
 // GET: My Orders

@@ -37,7 +37,6 @@ const SearchInput = ({ setData, setLoading }: SearchInputProps) => {
 
     debounceRef.current = setTimeout(async () => {
       const currentRequestId = ++requestIdRef.current;
-      console.log(currentRequestId, requestIdRef.current)
       try {
         const res = await searchProducts({ query: input });
         if (currentRequestId !== requestIdRef.current) return;

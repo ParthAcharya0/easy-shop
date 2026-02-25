@@ -25,7 +25,7 @@ const Order = () => {
         <div>
           <BackBtn size={40} />
         </div>
-        <h2 className="heading2 ml-8">Orders</h2>
+        <h2 className="heading2">Orders</h2>
         <Link to="/cart">
           <AiOutlineShopping size={32} />
         </Link>

@@ -51,7 +51,6 @@ const SignInPhone = () => {
         },
       });
     } catch (error: any) {
-      console.log(error)
       if(axios.isAxiosError(error)){
         toast.error(error.response?.data?.msg);
       }else{

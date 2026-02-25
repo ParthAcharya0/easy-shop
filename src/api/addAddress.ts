@@ -38,10 +38,8 @@ const addAddress = async (accessToken: string, address: Address) => {
     toast.success(address.msg);
     return true;
   } catch (error: any) {
-    console.log(error.message);
     if (error.message === "403") {
       const newToken = await refreshAccess(refreshToken);
-      console.log(newToken);
       newToken && addAddress(newToken, address);
     }
      if(axios.isAxiosError(error)){
