@@ -38,7 +38,7 @@ const NormalCard = ({
         className={`img-holder relative aspect-square ${variant ? "h-48" : "h-40"} w-full overflow-hidden rounded-lg`}
       >
         <img
-          className="aspect-square h-full w-full object-contain object-center "
+          className="aspect-square h-full w-full object-contain object-center"
           src={data.image}
           alt=""
         />
@@ -60,7 +60,10 @@ const NormalCard = ({
         )}
       </div>
       <div className="rounded-md bg-[rgba(255,255,255,0.22)] px-3 py-2.5 text-base backdrop-blur-sm">
-        <h4 className="line-clamp-2 py-0 font-medium capitalize max-w-[86%]"title={data.title}>
+        <h4
+          className="line-clamp-2 max-w-[86%] py-0 font-medium capitalize"
+          title={data.title}
+        >
           {data.title}
         </h4>
         <div className="flex flex-col gap-0.5">
@@ -68,21 +71,32 @@ const NormalCard = ({
             <span>${data.selling_price}</span>{" "}
             <span className="font-light line-through">
               ${data.actual_price}
-            </span>
+            </span>{" "}
+            {!(
+              (parseInt(data.actual_price) - parseInt(data.selling_price)) /
+              parseInt(data.actual_price)
+            ) &&
+              !!(
+                (parseInt(data.actual_price) - parseInt(data.selling_price)) /
+                parseInt(data.actual_price)
+              ) && (
+                <span className="inline-flex items-center gap-1 text-amber-700">
+                  <RiDiscountPercentFill />
+                  {(parseInt(data.actual_price) -
+                    parseInt(data.selling_price)) /
+                    parseInt(data.actual_price)}{" "}
+                  <span className="font-medium">off</span>
+                </span>
+              )}
           </span>
           {!variant && (
-            <div className="flex items-end justify-between">
-              <span className="inline-flex items-center gap-1 text-amber-700">
-                <RiDiscountPercentFill />
-                {(parseInt(data.actual_price) - parseInt(data.selling_price)) /
-                  parseInt(data.actual_price)}{" "}
-                <span className="font-medium">off</span>
-              </span>
+            <div className="flex flex-col justify-between">
               <button
-                className="cursor-pointer rounded-md bg-[#a8a6a6] p-2 text-xl backdrop-blur-sm"
+                className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-black p-2 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-80"
                 onClick={addCart}
               >
-                <AiOutlineShopping color="white" />
+                Add to cart{" "}
+                <AiOutlineShopping className="text-xl" color="white" />
               </button>
             </div>
           )}

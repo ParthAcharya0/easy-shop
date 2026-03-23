@@ -21,7 +21,7 @@ const FavoriteProduct = () => {
           ))}
         </div>
       ) : (
-        <div className="flex h-[80%] items-center justify-center text-2xl font-semibold">
+        <div className="flex h-[80dvh] items-center justify-center text-2xl font-semibold">
           <span>No Favorite Product Added Yet</span>
         </div>
       )}

@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <div className="relative flex items-center justify-between px-3.5 py-4">
       <div className="flex flex-col text-base md:hidden"></div>
-      <div className="ml-20 h-fit w-fit md:ml-0">
+      <div className="ml-5 h-fit w-fit md:ml-0">
         <img className="w-20" src="./logo.png" />
       </div>
       <div className="hidden gap-4 text-lg font-medium capitalize md:flex">

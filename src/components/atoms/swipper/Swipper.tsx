@@ -3,13 +3,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Swipper = () => {
   return (
-    <div className="h-[40dvh] md:h-[50dvh]">
+    <div className="aspect-3/1 sm:aspect-4/1">
       <Swiper
         spaceBetween={30}
         pagination={{
           clickable: true,
         }}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        // autoplay={{ delay: 2000, disableOnInteraction: false }}
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >

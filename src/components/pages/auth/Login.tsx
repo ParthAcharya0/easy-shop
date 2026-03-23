@@ -7,10 +7,10 @@ const Login = () => {
 
   return (
     <section className="custom-scroll container mx-auto flex h-dvh flex-col md:flex-row-reverse md:gap-5 md:px-5 relative z-0">
-      <div className="flex absolute md:relative -z-1 inset-0 grow basis-full items-center md:h-full">
+      <div className="flex absolute md:relative -z-1 inset-0 grow basis-full sm:items-center md:h-full">
         <img
           loading="lazy"
-          className="mx-auto h-full w-full object-cover object-center"
+          className="mx-auto h-[calc(100%-220px)] sm:h-full w-full object-cover object-center"
           src={IMAGES.LoginBanner}
           alt="login-banner"
         />
