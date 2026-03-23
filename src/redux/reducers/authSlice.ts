@@ -52,6 +52,9 @@ export default function authReducer(
     case "auth/setUserInfo":
       return { ...state, userInfo: action.payload };
 
+    case "auth/logout":
+      return { ...state, accessToken: "", isUserAuth: false, userInfo: {} };
+
     default:
       return state;
   }

@@ -5,3 +5,8 @@ export function setAccessToken(token: string) {
 export function setUser(info: any) {
   return { type: "auth/setUserInfo", payload: info };
 }
+
+export function logout() {
+  localStorage.removeItem("AUTH_TOKEN");
+  return { type: "auth/logout" };
+}

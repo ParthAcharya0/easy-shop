@@ -14,22 +14,22 @@ const Swipper = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img src="./banner-1.png" alt="..." />
+          <img src="./banner-1.webp" alt="..." />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="./banner-2.png" alt="..." />
+          <img src="./banner-2.webp" alt="..." />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="./banner-3.png" alt="..." />
+          <img src="./banner-3.webp" alt="..." />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="./banner-4.png" alt="..." />
+          <img src="./banner-4.webp" alt="..." />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="./banner-5.png" alt="..." />
+          <img src="./banner-5.webp" alt="..." />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="./banner-6.png" alt="..." />
+          <img src="./banner-6.webp" alt="..." />
         </SwiperSlide>
       </Swiper>
     </div>

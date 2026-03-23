@@ -1,6 +1,18 @@
-import axios from "axios";
+import axios, { type AxiosError } from "axios";
 import refreshAccess from "./refreshAccess";
+import store from "@/redux/store";
+import { logout } from "@/redux/actions/authAction";
 
+interface NetworkError {
+  type: string;
+  message: string;
+  status?: number;
+  originalError: AxiosError;
+}
+
+export const publicInstance = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+});
 export const privateInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
@@ -19,10 +31,12 @@ privateInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    console.log(error);
 
     // ============================
     // 1️⃣ Frontend is offline
     // ============================
+    console.log(navigator, navigator.onLine);
     if (!navigator.onLine) {
       return Promise.reject({
         type: "OFFLINE_ERROR",
@@ -73,6 +87,7 @@ privateInstance.interceptors.response.use(
 
         return privateInstance(originalRequest);
       } catch (refreshError) {
+        store.dispatch(logout());
         return Promise.reject({
           type: "AUTH_ERROR",
           message: "Session expired. Please log in again.",

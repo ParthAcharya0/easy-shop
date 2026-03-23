@@ -1,7 +1,7 @@
 import { IMAGES } from "@/constant/images/images";
-import Button from "@/components/atoms/button/Button";
 import Header from "@/components/atoms/text/Header";
 import { Link } from "react-router";
+import Button from "@/components/atoms/Button/Button";
 
 const Login = () => {
 

@@ -26,7 +26,7 @@ const Footer = ({ activePage = 0 }: { activePage?: number }) => {
         <Menu active={activePage === 3} label="Product" to="/AllPopularProduct">
           <FaProductHunt size={24} />
         </Menu>
-        <Menu active={activePage === 4} label="feed">
+        <Menu active={activePage === 4} label="favorites" to="/favProduct">
           <MdOutlineFeed size={24} />
         </Menu>
         <button onClick={logOut}>

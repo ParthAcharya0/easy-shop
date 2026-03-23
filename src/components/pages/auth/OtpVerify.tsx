@@ -1,7 +1,5 @@
 import { endpoints } from "@/constant/apiConstant";
 import BackBtn from "@/components/atoms/button/BackButton";
-import Button from "@/components/atoms/button/Button";
-import ResendOtpBtn from "@/components/atoms/button/ResendOtpButton";
 import Header from "@/components/atoms/text/Header";
 import { setAccessToken } from "@/redux/actions/authAction";
 import { useAppDispatch } from "@/redux/hooks";
@@ -10,6 +8,9 @@ import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
 import { verifyLoginOtp, verifyRegisterOtp } from "@/api/auth";
 import axios from "axios";
+import { FaInfo } from "react-icons/fa";
+import ResendOtpBtn from "@/components/atoms/Button/ResendOtpButton";
+import Button from "@/components/atoms/Button/Button";
 
 const OtpVerify = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -239,6 +240,12 @@ const OtpVerify = () => {
               <span className="loader w-2xl"></span>
             </p>
           )}
+          <div className="flex items-center justify-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-center text-sm text-amber-900">
+            <FaInfo className="shrink-0 text-amber-500" aria-hidden="true" />
+            <p>
+              For testing, use OTP <b className="font-semibold tracking-wide">123456</b>.
+            </p>
+          </div>
         </div>
       </div>
     </section>
