@@ -1,14 +1,14 @@
-import axios, { type AxiosError } from "axios";
+import axios from "axios";
 import refreshAccess from "./refreshAccess";
 import store from "@/redux/store";
 import { logout } from "@/redux/actions/authAction";
 
-interface NetworkError {
-  type: string;
-  message: string;
-  status?: number;
-  originalError: AxiosError;
-}
+// interface NetworkError {
+//   type: string;
+//   message: string;
+//   status?: number;
+//   originalError: AxiosError;
+// }
 
 export const publicInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

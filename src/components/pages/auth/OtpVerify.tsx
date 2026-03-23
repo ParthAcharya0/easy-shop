@@ -9,8 +9,8 @@ import { useLocation, useNavigate } from "react-router";
 import { verifyLoginOtp, verifyRegisterOtp } from "@/api/auth";
 import axios from "axios";
 import { FaInfo } from "react-icons/fa";
-import ResendOtpBtn from "@/components/atoms/Button/ResendOtpButton";
-import Button from "@/components/atoms/Button/Button";
+import ResendOtpBtn from "@/components/atoms/button/ResendOtpButton";
+import Button from "@/components/atoms/button/Button";
 
 const OtpVerify = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);

@@ -2,14 +2,15 @@ import SearchInput from "@/components/atoms/input/SearchInput";
 import HeaderLink from "@/components/atoms/text/HeaderLink";
 import Header from "@/components/molecules/layout/Header";
 import Footer from "@/components/molecules/layout/Footer";
-import NProductList from "@/components/molecules/cardList/NProductList";
 import CategoryList from "@/components/molecules/cardList/CategoryList";
+import NProductList from "@/components/molecules/cardList/NProductList";
 import Swipper from "@/components/atoms/swipper/Swipper";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { getUserDetails } from "@/api/auth";
 import { getStore } from "@/api/store";
 import { setProducts, setStoreData } from "@/redux/actions/storeAction";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const storeData = useAppSelector((state) => state.storeData);
@@ -24,7 +25,8 @@ const Home = () => {
       const response = await getStore();
       dispatch(setStoreData(response.data));
       dispatch(setProducts(response.data));
-    } catch (error) {
+    } catch (error:any) {
+      toast.error(error?.message || "Failed to fetch store data");
     } finally {
       setLoading(false);
     }
@@ -34,7 +36,9 @@ const Home = () => {
     (async () => {
       try {
         await getUserDetails();
-      } catch (_) {}
+      } catch (error:any) {
+        toast.error(error?.message || "Failed to fetch user details");
+      }
     })();
     !store.length && fetchStoreData();
   }, []);
@@ -48,25 +52,6 @@ const Home = () => {
         </section>
 
         <Swipper />
-
-        {/* <section className="my-5 px-3.5">
-          <HeaderLink
-            heading="Popular Products"
-            subHeading="View all"
-            to="/AllPopularProduct"
-          />
-          {loading ? (
-            <p className="flex h-44 items-center justify-center text-center font-medium">
-              <span className="loader w-2xl"></span>
-            </p>
-          ) : allProducts.length === 0 ? (
-            <p className="flex h-44 items-center justify-center text-center font-medium">
-              <span className="w-2xl">No Products</span>
-            </p>
-          ) : (
-            <PopularProductList data={allProducts} variant="limited" />
-          )}
-        </section> */}
 
         <section className="px-3.5 py-5">
           <HeaderLink

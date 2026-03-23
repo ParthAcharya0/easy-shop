@@ -1,4 +1,4 @@
-import CartBtn from "@/components/atoms/Button/CartButton";
+import CartBtn from "@/components/atoms/button/CartButton";
 import { IoPersonOutline } from "react-icons/io5";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
